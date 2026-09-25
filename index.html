@@ -1,380 +1,512 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<!--
+  Muhammad Bayoumi — personal site, built on the Supabase Design System.
+  Every block names its source as [ID path:line]; the IDs are defined in
+  DESIGN.md → "Source registry". Supabase paths are at commit e3febf3.
+-->
+<html lang="en" data-theme="dark" style="color-scheme: dark">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Muhammad Bayoumi — Senior Technical Office Engineer</title>
-  <meta name="description" content="Muhammad Bayoumi — civil engineer in Riyadh working across tendering, technical office, quantity surveying and cost estimation, and the mind behind the mbiX Excel add-in."/>
+  <!-- Most-specific-first title with " | " separators [SB-DOC-NAV ui-patterns/navigation.mdx "Page titles"] -->
+  <title>Muhammad Bayoumi | Senior Technical Office Engineer</title>
+  <meta name="description" content="Civil engineer in Riyadh working across tendering, technical office, quantity surveying and cost estimation, and the mind behind the mbiX Excel add-in"/>
   <meta name="author" content="Muhammad Bayoumi"/>
-  <meta name="robots" content="index, follow"/>
-  <meta name="theme-color" content="#0b131a"/>
   <link rel="canonical" href="https://muhammadbayoumi.github.io/"/>
   <meta property="og:type" content="profile"/>
   <meta property="og:url" content="https://muhammadbayoumi.github.io/"/>
-  <meta property="og:title" content="Muhammad Bayoumi — Senior Technical Office Engineer"/>
-  <meta property="og:description" content="Civil engineer bridging construction and data. The mind behind mbiX."/>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23111b21' width='100' height='100' rx='20'/%3E%3Ctext x='50' y='66' font-size='46' font-weight='700' text-anchor='middle' fill='%2325d366' font-family='Consolas,monospace'%3EMB%3C/text%3E%3C/svg%3E"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
-  <link rel="stylesheet" href="assets/css/style.css"/>
+  <meta property="og:title" content="Muhammad Bayoumi | Senior Technical Office Engineer"/>
+  <meta property="og:description" content="Civil engineer bridging construction and data, and the mind behind mbiX"/>
+  <!-- theme-color as the design-system site sets it [SB-DS-LAYOUT apps/design-system/app/layout.tsx:21-23] -->
+  <meta name="theme-color" content="#1E1E1E"/>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+
+  <!-- Theme before first paint, as next-themes does [EXT-NEXT-THEMES], configured like
+       Supabase: themes dark/light, default "system", attribute data-theme, storage key "theme"
+       [SB-COMMON-PROVIDERS packages/common/Providers.tsx:22-26] -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme') || 'system';
+        var r = t === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : t;
+        if (r !== 'dark' && r !== 'light') r = 'dark';
+        document.documentElement.setAttribute('data-theme', r);
+        document.documentElement.style.colorScheme = r;
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Fonts of the design-system site [SB-DS-FONTS apps/design-system/lib/fonts.ts] -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Manrope:wght@200..800&family=Source+Code+Pro:wght@400;500;600;700&display=swap"/>
+
+  <!-- Load order of packages/config/tailwind.config.css:1,12-16 -->
+  <link rel="stylesheet" href="assets/vendor/tailwind/preflight.css"/>
+  <link rel="stylesheet" href="assets/vendor/supabase/global.css"/>
+  <link rel="stylesheet" href="assets/vendor/supabase/semantic.css"/>
+  <link rel="stylesheet" href="assets/vendor/supabase/compat.css"/>
+  <link rel="stylesheet" href="assets/vendor/supabase/dark.css"/>
+  <link rel="stylesheet" href="assets/vendor/supabase/light.css"/>
+  <link rel="stylesheet" href="assets/css/tokens.css"/>
+  <link rel="stylesheet" href="assets/css/components.css"/>
+  <link rel="stylesheet" href="assets/css/site.css"/>
   <script src="assets/js/main.js" defer></script>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to main content</a>
+  <!-- Lucide icons [SB-DOC-ICONS icons.mdx "UI icons"] [LUCIDE lucide-static@0.436.0] -->
+  <svg xmlns="http://www.w3.org/2000/svg" hidden aria-hidden="true">
+    <!-- Lucide icons v0.436.0 (ISC) via lucide-static — https://cdn.jsdelivr.net/npm/lucide-static@0.436.0/icons/ -->
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" /><circle cx="12" cy="8" r="6" /></symbol>
+    <symbol id="i-braces" viewBox="0 0 24 24"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1" /><path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1" /></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /><rect width="20" height="14" x="2" y="6" rx="2" /></symbol>
+    <symbol id="i-building-2" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" /><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" /><path d="M10 6h4" /><path d="M10 10h4" /><path d="M10 14h4" /><path d="M10 18h4" /></symbol>
+    <symbol id="i-chart-column" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16" /><path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" /></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></symbol>
+    <symbol id="i-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></symbol>
+    <symbol id="i-file-spreadsheet" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="M8 13h2" /><path d="M14 13h2" /><path d="M8 17h2" /><path d="M14 17h2" /></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" /><path d="M9 18c-4.51 2-5-2-7-2" /></symbol>
+    <symbol id="i-graduation-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /><path d="M22 10v6" /><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></symbol>
+    <symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></symbol>
+    <symbol id="i-network" viewBox="0 0 24 24"><rect x="16" y="16" width="6" height="6" rx="1" /><rect x="2" y="16" width="6" height="6" rx="1" /><rect x="9" y="2" width="6" height="6" rx="1" /><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" /><path d="M12 12V8" /></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" /></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></symbol>
+  </svg>
 
-  <!-- ══════ NAVBAR ══════ -->
-  <header class="navbar" id="navbar">
-    <div class="container navbar-inner">
-      <a class="navbar-brand" href="#top" aria-label="Muhammad Bayoumi — back to top">M<span>.</span>Bayoumi</a>
-      <button class="navbar-toggler" type="button" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="bi bi-list" aria-hidden="true"></i>
-      </button>
-      <nav class="navbar-menu" id="navMenu" aria-label="Main navigation">
-        <a class="nav-link" href="#experience">Experience</a>
-        <a class="nav-link" href="#story">Story</a>
-        <a class="nav-link" href="#projects">Projects</a>
-        <a class="nav-link" href="#skills">Skills</a>
-        <a class="nav-link" href="#certifications">Certifications</a>
-        <a class="btn-pill-green nav-cta" href="#contact">Contact <i class="bi bi-arrow-right btn-arrow" aria-hidden="true"></i></a>
+  <!-- SkipToContent [SB-UIP-SKIP packages/ui-patterns/src/SkipToContent/SkipToContent.tsx:20-31]:
+       FloatingPlate + Button size="tiny" asChild, default label "Skip to content" -->
+  <div class="sb-skip">
+    <a class="sb-btn sb-btn--default sb-btn--tiny sb-focus-ring" href="#main"><span class="sb-btn-label">Skip to content</span></a>
+  </div>
+
+  <!-- TopNavigation [SB-DS-TOPNAV apps/design-system/components/top-navigation.tsx:16-39] -->
+  <header class="sb-topnav" id="site-header">
+    <div class="sb-topnav-bar">
+      <!-- inner width from PageContainer instead of max-w-site — see DESIGN.md → Deviations -->
+      <div class="sb-page sb-topnav-inner">
+        <a class="sb-topnav-title sb-focus-ring" href="#top">Muhammad Bayoumi</a>
+        <div class="site-actions">
+          <!-- ThemeSwitcherDropdown [SB-DS-THEMESWITCHER apps/design-system/components/theme-switcher-dropdown.tsx:39-68];
+               sr-only name from ThemeToggle [SB-UIP-THEMETOGGLE packages/ui-patterns/src/ThemeToggle.tsx:56];
+               keyboard behaviour: menu button pattern [EXT-APG-MENU-BUTTON] as Radix implements it [EXT-RADIX-DROPDOWN] -->
+          <div class="site-menu">
+            <button class="sb-btn sb-btn--text sb-btn--tiny sb-btn--icon sb-focus-ring" type="button" id="theme-trigger"
+                    aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu" data-state="closed">
+              <span class="sb-btn-icon" aria-hidden="true">
+                <svg class="sb-icon" data-theme-icon="dark"><use href="#i-moon"/></svg>
+                <svg class="sb-icon" data-theme-icon="light" hidden><use href="#i-sun"/></svg>
+              </span>
+              <span class="sr-only">Toggle theme</span>
+            </button>
+            <div class="sb-dropdown site-menu-content" id="theme-menu" role="menu" aria-labelledby="theme-trigger" hidden>
+              <div class="sb-dropdown-label">Theme</div>
+              <div class="sb-dropdown-separator" role="separator"></div>
+              <!-- options and their order: singleThemes [SB-UI-THEMES packages/ui/src/components/ThemeProvider/singleThemes.ts:6-10] -->
+              <div role="group">
+                <button class="sb-dropdown-radio" type="button" role="menuitemradio" aria-checked="false" tabindex="-1" data-value="system">
+                  <span class="sb-dropdown-indicator" aria-hidden="true"><svg class="sb-icon"><use href="#i-circle"/></svg></span>System
+                </button>
+                <button class="sb-dropdown-radio" type="button" role="menuitemradio" aria-checked="false" tabindex="-1" data-value="dark">
+                  <span class="sb-dropdown-indicator" aria-hidden="true"><svg class="sb-icon"><use href="#i-circle"/></svg></span>Dark
+                </button>
+                <button class="sb-dropdown-radio" type="button" role="menuitemradio" aria-checked="false" tabindex="-1" data-value="light">
+                  <span class="sb-dropdown-indicator" aria-hidden="true"><svg class="sb-icon"><use href="#i-circle"/></svg></span>Light
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section tabs: NavMenu [SB-UI-NAVMENU packages/ui/src/components/NavMenu/index.tsx] placed as
+         PageHeaderNavigationTabs does [SB-UIP-PAGEHEADER packages/ui-patterns/src/PageHeader/index.tsx:249-252].
+         Nav labels in title case [SB-DOC-COPY copywriting.mdx "Use title case for … global navigation"]. -->
+    <div class="sb-page site-tabs">
+      <nav class="sb-navmenu" aria-label="Sections">
+        <ul class="sb-navmenu-list no-scrollbar">
+          <li class="sb-navmenu-item" data-state="inactive"><a class="sb-focus-ring" href="#about">About</a></li>
+          <li class="sb-navmenu-item" data-state="inactive"><a class="sb-focus-ring" href="#experience">Experience</a></li>
+          <li class="sb-navmenu-item" data-state="inactive"><a class="sb-focus-ring" href="#mbix-story">mbiX Story</a></li>
+          <li class="sb-navmenu-item" data-state="inactive"><a class="sb-focus-ring" href="#projects">Projects</a></li>
+          <li class="sb-navmenu-item" data-state="inactive"><a class="sb-focus-ring" href="#skills">Skills</a></li>
+          <li class="sb-navmenu-item" data-state="inactive"><a class="sb-focus-ring" href="#certifications">Certifications</a></li>
+          <li class="sb-navmenu-item" data-state="inactive"><a class="sb-focus-ring" href="#contact">Contact</a></li>
+        </ul>
       </nav>
     </div>
   </header>
 
-  <main id="main">
-    <!-- ══════ HERO ══════ -->
-    <section class="section-dark3 hero" id="top" aria-labelledby="hero-name">
-      <div class="container">
-        <div class="section-tag">The Engineer</div>
-        <h1 id="hero-name" class="hero-name">Muhammad Bayoumi</h1>
-        <p class="about-role">
-          Senior Technical Office Engineer, and <span class="about-role-highlight">the mind behind mbiX</span>
-        </p>
-        <p class="hero-meta">
-          <span><i class="bi bi-geo-alt-fill" aria-hidden="true"></i> Riyadh, Saudi Arabia</span>
-          <span><i class="bi bi-mortarboard-fill" aria-hidden="true"></i> M.Sc. Data Science — in progress</span>
-        </p>
+  <!-- Landmark target: id + tabindex=-1 [SB-DOC-SKIP fragments/skip-to-content.mdx "Target landmark"] -->
+  <main id="main" tabindex="-1">
 
-        <div class="about-bio">
-          <p>
-            Civil engineer with <span data-years-since="2019">7</span>+ years of experience in tendering,
-            technical office work, quantity surveying, and cost estimation on large-scale
-            construction projects across Egypt and Saudi Arabia.
-          </p>
-          <p>
-            The mind behind mbiX — an Excel VSTO add-in designed to help teams pull and update
-            data inside Microsoft Excel seamlessly — eliminating the friction of manual updates.
-          </p>
-          <p>
-            A self-motivated, ethics-driven engineer committed to continuous learning and to
-            delivering real value to colleagues in ways that strengthen team spirit and collaboration.
-            My ambition is to be part of leading positive change in the world.
-          </p>
-        </div>
-
-        <div class="badge-row" aria-label="Memberships and certifications">
-          <span class="badge-cert"><i class="bi bi-patch-check-fill" aria-hidden="true"></i> Egyptian Engineering Syndicate</span>
-          <span class="badge-cert"><i class="bi bi-patch-check-fill" aria-hidden="true"></i> Saudi Council of Engineers</span>
-          <span class="badge-cert"><i class="bi bi-award-fill" aria-hidden="true"></i> IPMA Level D — Certified Project Manager</span>
-        </div>
-
-        <div class="cta-row">
-          <a class="btn-pill-green" href="mailto:muhammad.bayoumi.ali@gmail.com">Get in touch <i class="bi bi-envelope btn-arrow" aria-hidden="true"></i></a>
-          <a class="btn-pill-dark-on-dark" href="https://www.linkedin.com/in/muhammad-bayoumi-ali/" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin" aria-hidden="true"></i> LinkedIn</a>
-          <a class="btn-pill-dark-on-dark" href="https://github.com/muhammadbayoumi" target="_blank" rel="noopener noreferrer"><i class="bi bi-github" aria-hidden="true"></i> GitHub</a>
-        </div>
-
-        <dl class="stats-row">
-          <div class="stat">
-            <dt class="stat-label">Years in construction</dt>
-            <dd class="stat-value"><span data-years-since="2019">7</span>+</dd>
+    <!-- PageHeader [SB-UIP-PAGEHEADER] composed as in the Detail pattern [SB-DS-EX-DETAIL page-layout-detail.tsx:47-56].
+         Title takes Typography h1 [SB-DS-TYPO-EX typography-h1.tsx] through PageHeaderTitle's className. -->
+    <div class="sb-page-header" id="top">
+      <div class="sb-page">
+        <div class="sb-page-header-meta">
+          <div class="sb-page-header-summary">
+            <h1 class="sb-h1">Muhammad Bayoumi</h1>
+            <p class="sb-page-header-description">Senior Technical Office Engineer, and the mind behind mbiX</p>
           </div>
-          <div class="stat">
-            <dt class="stat-label">Countries</dt>
-            <dd class="stat-value">EG · SA</dd>
+          <div class="sb-page-header-aside site-wrap">
+            <!-- Button primary / default, size small [SB-UI-BUTTON]; verb-first labels [SB-DOC-COPY "Use verbs, not nouns"];
+                 icons paired with text [SB-DOC-ICONS "Paired"] -->
+            <a class="sb-btn sb-btn--primary sb-btn--small sb-focus-ring" href="mailto:muhammad.bayoumi.ali@gmail.com">
+              <span class="sb-btn-icon" aria-hidden="true"><svg class="sb-icon"><use href="#i-mail"/></svg></span><span class="sb-btn-label">Send email</span>
+            </a>
+            <a class="sb-btn sb-btn--default sb-btn--small sb-focus-ring" href="https://www.linkedin.com/in/muhammad-bayoumi-ali/" target="_blank" rel="noopener noreferrer">
+              <span class="sb-btn-icon" aria-hidden="true"><svg class="sb-icon"><use href="#i-linkedin"/></svg></span><span class="sb-btn-label">Open LinkedIn</span>
+            </a>
           </div>
-          <div class="stat">
-            <dt class="stat-label">Products built</dt>
-            <dd class="stat-value">2</dd>
-          </div>
-        </dl>
+        </div>
       </div>
-    </section>
+    </div>
 
-    <div class="glow-line" aria-hidden="true"></div>
+    <div class="sb-page">
+      <!-- MetricCards in "grid grid-cols-3 gap-2" [SB-STUDIO-METRICS]; parts [SB-UIP-METRICCARD].
+           Label is a <p>, not CardTitle's <h3>, so heading levels stay in order [EXT-WCAG-HEADINGS] — see Deviations. -->
+      <div class="site-metrics">
+        <div class="sb-card">
+          <div class="sb-metric-header"><p class="sb-card-title sb-metric-label">Experience</p></div>
+          <div class="sb-metric-content">
+            <span class="sb-metric-value"><span data-years-since="2019">7</span>+</span>
+            <span class="sb-metric-diff">Years, since 2019</span>
+          </div>
+        </div>
+        <div class="sb-card">
+          <div class="sb-metric-header"><p class="sb-card-title sb-metric-label">Countries</p></div>
+          <div class="sb-metric-content">
+            <span class="sb-metric-value">2</span>
+            <span class="sb-metric-diff">Egypt, Saudi Arabia</span>
+          </div>
+        </div>
+        <div class="sb-card">
+          <div class="sb-metric-header"><p class="sb-card-title sb-metric-label">Products</p></div>
+          <div class="sb-metric-content">
+            <span class="sb-metric-value">2</span>
+            <span class="sb-metric-diff">Xadd-in, ScrapeX</span>
+          </div>
+        </div>
+      </div>
 
-    <!-- ══════ EXPERIENCE ══════ -->
-    <section class="section-dark1 py-section" id="experience" aria-labelledby="experience-title">
-      <div class="container">
-        <div class="section-tag">Career</div>
-        <h2 id="experience-title" class="section-title">Experience</h2>
+      <!-- Each section: PageSection orientation="horizontal" [SB-UIP-PAGESECTION], as in [SB-DS-EX-DETAIL:59-91].
+           Headings in sentence case, descriptions as fragments without a period [SB-DOC-COPY "Navigation and headings"]. -->
 
-        <div class="split">
-          <ol class="timeline" aria-label="Work experience">
-            <li class="timeline-item">
-              <div class="timeline-dot" aria-hidden="true"></div>
-              <div class="timeline-year">Feb 2025 — Present</div>
-              <div class="timeline-role">Senior Technical Office Engineer</div>
-              <div class="timeline-text">Saudi Pan Kingdom Company (SAPAC) · Riyadh, Saudi Arabia</div>
-            </li>
-            <li class="timeline-item">
-              <div class="timeline-dot" aria-hidden="true"></div>
-              <div class="timeline-year">Jan 2024 — Jan 2025</div>
-              <div class="timeline-role">Senior Tendering, QS &amp; Cost Estimation Engineer</div>
-              <div class="timeline-text">Samco — National Construction</div>
-            </li>
-            <li class="timeline-item">
-              <div class="timeline-dot" aria-hidden="true"></div>
-              <div class="timeline-year">Jun 2021 — Dec 2023</div>
-              <div class="timeline-role">Technical Office Engineer</div>
-              <div class="timeline-text">Samco — National Construction · joined as Site Engineer, then moved to Technical Office</div>
-            </li>
-            <li class="timeline-item">
-              <div class="timeline-dot" aria-hidden="true"></div>
-              <div class="timeline-year">Mar 2019 — Feb 2020</div>
-              <div class="timeline-role">Supervision &amp; Technical Office Engineer</div>
-              <div class="timeline-text">Egyptian Armed Forces Engineering Authority · Egypt</div>
-            </li>
-          </ol>
-
-          <div class="side-stack">
-            <div class="feature-card">
-              <div class="feature-icon"><i class="bi bi-mortarboard" aria-hidden="true"></i></div>
-              <h3 class="feature-title">Education</h3>
-              <p class="feature-desc"><strong>Master's degree in Data Science</strong><br/>Cairo University · 2024 — 2027 (in progress)</p>
+      <!-- ══ About ══ -->
+      <section class="sb-section sb-section--horizontal" id="about" aria-labelledby="about-title">
+        <div class="sb-section-summary">
+          <h2 id="about-title">About</h2>
+          <div class="sb-section-description">Civil engineer bridging construction and data</div>
+        </div>
+        <div>
+          <div class="sb-card">
+            <div class="sb-card-content site-kv">
+              <p class="sb-p site-prose">
+                Civil engineer with <span data-years-since="2019">7</span>+ years of experience in tendering,
+                technical office work, quantity surveying, and cost estimation on large-scale
+                construction projects across Egypt and Saudi Arabia.
+              </p>
+              <p class="sb-p site-prose">
+                The mind behind mbiX — an Excel VSTO add-in designed to help teams pull and update
+                data inside Microsoft Excel seamlessly — eliminating the friction of manual updates.
+              </p>
+              <p class="sb-p site-prose">
+                A self-motivated, ethics-driven engineer committed to continuous learning and to
+                delivering real value to colleagues in ways that strengthen team spirit and collaboration.
+                My ambition is to be part of leading positive change in the world.
+              </p>
             </div>
-            <div class="feature-card">
-              <div class="feature-icon"><i class="bi bi-building-check" aria-hidden="true"></i></div>
-              <h3 class="feature-title">Professional memberships</h3>
-              <ul class="plain-list feature-desc">
-                <li>Egyptian Engineering Syndicate</li>
-                <li>Saudi Council of Engineers</li>
-              </ul>
+            <div class="sb-card-content site-kv">
+              <div class="site-kv-stack">
+                <div>
+                  <p class="site-kv-label">Location</p>
+                  <p class="site-kv-value">Riyadh, Saudi Arabia</p>
+                </div>
+                <div>
+                  <p class="site-kv-label">Professional memberships</p>
+                  <p class="site-kv-value">Egyptian Engineering Syndicate · Saudi Council of Engineers</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <div class="glow-line" aria-hidden="true"></div>
-
-    <!-- ══════ STORY ══════ -->
-    <section class="section-dark3 py-section" id="story" aria-labelledby="story-title">
-      <div class="container">
-        <div class="split">
-          <div>
-            <div class="section-tag">The Story</div>
-            <h2 id="story-title" class="section-title">Why mbiX?</h2>
-            <p class="prose">
-              In every construction project, the same problem repeats: pricing data, material rates,
-              and BOQ breakdowns live in Google Sheets — shared across teams, updated by dozens of people.
-              But the real engineering work happens in Excel. Copy-pasting is error-prone, manual syncing
-              wastes hours every week, and there is no validation layer in between.
-            </p>
-            <p class="prose">
-              mbiX was born from this daily frustration. Instead of waiting for an IT department to build
-              a cloud solution, I built the tool where the work actually happens — directly inside
-              Excel, with a full ETL pipeline, schema governance, and zero external dependencies.
-              What started as a personal automation script grew into a complete Excel Intelligence Platform.
-            </p>
-          </div>
-          <ol class="timeline" aria-label="mbiX timeline">
-            <li class="timeline-item">
-              <div class="timeline-dot" aria-hidden="true"></div>
-              <div class="timeline-year">2021</div>
-              <div class="timeline-text">Joined Samco as Site Engineer, then moved to Technical Office — first exposure to the data sync problem</div>
-            </li>
-            <li class="timeline-item">
-              <div class="timeline-dot" aria-hidden="true"></div>
-              <div class="timeline-year">2023</div>
-              <div class="timeline-text">First mbiX prototype — basic sync from Google Sheets to Excel using C# and VSTO</div>
-            </li>
-            <li class="timeline-item">
-              <div class="timeline-dot" aria-hidden="true"></div>
-              <div class="timeline-year">2024</div>
-              <div class="timeline-text">Full ETL pipeline with validation, schema rules, and PipelineLogger. Promoted to Senior QS and Cost Estimation Engineer</div>
-            </li>
-            <li class="timeline-item">
-              <div class="timeline-dot" aria-hidden="true"></div>
-              <div class="timeline-year">2025</div>
-              <div class="timeline-text">Moved to SAPAC in Riyadh as Senior Technical Office Engineer. Dynamic Ribbon, RSA licensing, Export Engine, and public release of mbiX</div>
-            </li>
-          </ol>
+      <!-- ══ Experience ══ -->
+      <section class="sb-section sb-section--horizontal" id="experience" aria-labelledby="experience-title">
+        <div class="sb-section-summary">
+          <h2 id="experience-title">Experience</h2>
+          <div class="sb-section-description">Construction roles from site supervision to technical office</div>
         </div>
-      </div>
-    </section>
+        <div class="site-stack">
+          <!-- Card rows use the Detail key–value stack [SB-DS-EX-DETAIL:70-85] -->
+          <div class="sb-card">
+            <div class="sb-card-header"><h3 class="sb-card-title">Work</h3></div>
+            <div class="sb-card-content">
+              <p class="site-kv-label">Feb 2025 – Present</p>
+              <p class="site-kv-value site-kv-value--primary">Senior Technical Office Engineer</p>
+              <p class="site-kv-note">Saudi Pan Kingdom Company (SAPAC) · Riyadh, Saudi Arabia</p>
+            </div>
+            <div class="sb-card-content">
+              <p class="site-kv-label">Jan 2024 – Jan 2025</p>
+              <p class="site-kv-value site-kv-value--primary">Senior Tendering, QS &amp; Cost Estimation Engineer</p>
+              <p class="site-kv-note">Samco — National Construction</p>
+            </div>
+            <div class="sb-card-content">
+              <p class="site-kv-label">Jun 2021 – Dec 2023</p>
+              <p class="site-kv-value site-kv-value--primary">Technical Office Engineer</p>
+              <p class="site-kv-note">Samco — National Construction · joined as Site Engineer, then moved to Technical Office</p>
+            </div>
+            <div class="sb-card-content">
+              <p class="site-kv-label">Mar 2019 – Feb 2020</p>
+              <p class="site-kv-value site-kv-value--primary">Supervision &amp; Technical Office Engineer</p>
+              <p class="site-kv-note">Egyptian Armed Forces Engineering Authority · Egypt</p>
+            </div>
+          </div>
+          <div class="sb-card">
+            <div class="sb-card-header"><h3 class="sb-card-title">Education</h3></div>
+            <div class="sb-card-content">
+              <p class="site-kv-label">2024 – 2027 · in progress</p>
+              <p class="site-kv-value site-kv-value--primary">Master's degree in Data Science</p>
+              <p class="site-kv-note">Cairo University</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <div class="glow-line" aria-hidden="true"></div>
+      <!-- ══ mbiX story ══ -->
+      <section class="sb-section sb-section--horizontal" id="mbix-story" aria-labelledby="story-title">
+        <div class="sb-section-summary">
+          <h2 id="story-title">mbiX story</h2>
+          <div class="sb-section-description">Why an Excel add-in, and how it grew</div>
+        </div>
+        <div>
+          <div class="sb-card">
+            <div class="sb-card-content site-kv">
+              <p class="sb-p site-prose">
+                In every construction project, the same problem repeats: pricing data, material rates,
+                and BOQ breakdowns live in Google Sheets — shared across teams, updated by dozens of people.
+                But the real engineering work happens in Excel. Copy-pasting is error-prone, manual syncing
+                wastes hours every week, and there is no validation layer in between.
+              </p>
+              <p class="sb-p site-prose">
+                mbiX was born from this daily frustration. Instead of waiting for an IT department to build
+                a cloud solution, I built the tool where the work actually happens — directly inside
+                Excel, with a full ETL pipeline, schema governance, and zero external dependencies.
+                What started as a personal automation script grew into a complete Excel Intelligence Platform.
+              </p>
+            </div>
+            <div class="sb-card-content">
+              <p class="site-kv-label">2021</p>
+              <p class="site-kv-value">Joined Samco as Site Engineer, then moved to Technical Office — first exposure to the data sync problem</p>
+            </div>
+            <div class="sb-card-content">
+              <p class="site-kv-label">2023</p>
+              <p class="site-kv-value">First mbiX prototype — basic sync from Google Sheets to Excel using C# and VSTO</p>
+            </div>
+            <div class="sb-card-content">
+              <p class="site-kv-label">2024</p>
+              <p class="site-kv-value">Full ETL pipeline with validation, schema rules, and PipelineLogger. Promoted to Senior QS and Cost Estimation Engineer</p>
+            </div>
+            <div class="sb-card-content">
+              <p class="site-kv-label">2025</p>
+              <p class="site-kv-value">Moved to SAPAC in Riyadh as Senior Technical Office Engineer. Dynamic Ribbon, RSA licensing, Export Engine, and public release of mbiX</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <!-- ══════ PROJECTS ══════ -->
-    <section class="section-dark1 py-section" id="projects" aria-labelledby="projects-title">
-      <div class="container">
-        <div class="section-tag">What I build</div>
-        <h2 id="projects-title" class="section-title">Projects</h2>
-        <p class="section-sub">Tools built from real problems on construction projects — where the data lives, and where the work happens.</p>
-
-        <div class="card-grid">
-          <article class="feature-card project-card">
-            <div class="feature-icon"><i class="bi bi-file-earmark-spreadsheet" aria-hidden="true"></i></div>
-            <h3 class="feature-title">mbiX Xadd-in for Excel</h3>
-            <p class="feature-desc">
-              An Excel VSTO add-in that syncs Google Sheets data into a local SQLite database through a
-              full ETL pipeline — giving workbooks live, validated, schema-driven data without copy-paste.
-            </p>
-            <div class="tag-row"><span class="tag">C# / .NET</span><span class="tag">VSTO</span><span class="tag">SQLite</span><span class="tag">ETL</span></div>
-            <div class="card-links">
-              <a href="https://muhammadbayoumi.github.io/mbiXsite/install.html">Website <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
-              <a href="https://github.com/muhammadbayoumi/mbiX-hub/releases" target="_blank" rel="noopener noreferrer">Releases <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+      <!-- ══ Projects ══ -->
+      <section class="sb-section sb-section--horizontal" id="projects" aria-labelledby="projects-title">
+        <div class="sb-section-summary">
+          <h2 id="projects-title">Projects</h2>
+          <div class="sb-section-description">Tools built for real work on construction projects</div>
+        </div>
+        <div class="site-stack">
+          <!-- Card: header / content / footer [SB-UI-CARD]; badges [SB-UI-BADGE]; footer buttons size tiny [SB-UI-BUTTON] -->
+          <article class="sb-card">
+            <div class="sb-card-header">
+              <h3 class="sb-card-title">mbiX Xadd-in for Excel</h3>
+            </div>
+            <div class="sb-card-content">
+              <p class="site-kv-note">
+                An Excel VSTO add-in that syncs Google Sheets data into a local SQLite database through a
+                full ETL pipeline — giving workbooks live, validated, schema-driven data without copy-paste.
+              </p>
+              <div class="site-badges site-kv-actions">
+                <span class="sb-badge">C# / .NET</span><span class="sb-badge">VSTO</span><span class="sb-badge">SQLite</span><span class="sb-badge">ETL</span>
+              </div>
+            </div>
+            <div class="sb-card-footer site-actions">
+              <a class="sb-btn sb-btn--default sb-btn--tiny sb-focus-ring" href="https://muhammadbayoumi.github.io/mbiXsite/install.html">
+                <span class="sb-btn-label">Open website</span><span class="sb-btn-icon" aria-hidden="true"><svg class="sb-icon"><use href="#i-arrow-up-right"/></svg></span>
+              </a>
+              <a class="sb-btn sb-btn--outline sb-btn--tiny sb-focus-ring" href="https://github.com/muhammadbayoumi/mbiX-hub/releases" target="_blank" rel="noopener noreferrer">
+                <span class="sb-btn-label">View releases</span><span class="sb-btn-icon" aria-hidden="true"><svg class="sb-icon"><use href="#i-arrow-up-right"/></svg></span>
+              </a>
             </div>
           </article>
 
-          <article class="feature-card project-card">
-            <div class="feature-icon"><i class="bi bi-braces-asterisk" aria-hidden="true"></i></div>
-            <h3 class="feature-title">ScrapeX for Chrome</h3>
-            <p class="feature-desc">
-              A Chrome extension and local engine that collects web data — prices and contractor
-              directories — into a SQLite warehouse that feeds the mbiX add-in. No servers, no account,
-              no telemetry.
-            </p>
-            <div class="tag-row"><span class="tag">Python</span><span class="tag">Chrome extension</span><span class="tag">SQLite</span></div>
-            <div class="card-links">
-              <a href="https://muhammadbayoumi.github.io/mbiXsite/scrapex-install.html">Install <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
-              <a href="https://github.com/muhammadbayoumi/ScrapeX" target="_blank" rel="noopener noreferrer">Source <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+          <article class="sb-card">
+            <div class="sb-card-header">
+              <h3 class="sb-card-title">ScrapeX for Chrome</h3>
+            </div>
+            <div class="sb-card-content">
+              <p class="site-kv-note">
+                A Chrome extension and local engine that collects web data — prices and contractor
+                directories — into a SQLite warehouse that feeds the mbiX add-in. No servers, no account,
+                no telemetry.
+              </p>
+              <div class="site-badges site-kv-actions">
+                <span class="sb-badge">Python</span><span class="sb-badge">Chrome extension</span><span class="sb-badge">SQLite</span>
+              </div>
+            </div>
+            <div class="sb-card-footer site-actions">
+              <a class="sb-btn sb-btn--default sb-btn--tiny sb-focus-ring" href="https://muhammadbayoumi.github.io/mbiXsite/scrapex-install.html">
+                <span class="sb-btn-label">Install ScrapeX</span><span class="sb-btn-icon" aria-hidden="true"><svg class="sb-icon"><use href="#i-arrow-up-right"/></svg></span>
+              </a>
+              <a class="sb-btn sb-btn--outline sb-btn--tiny sb-focus-ring" href="https://github.com/muhammadbayoumi/ScrapeX" target="_blank" rel="noopener noreferrer">
+                <span class="sb-btn-label">View source</span><span class="sb-btn-icon" aria-hidden="true"><svg class="sb-icon"><use href="#i-arrow-up-right"/></svg></span>
+              </a>
             </div>
           </article>
 
-          <article class="feature-card project-card">
-            <div class="feature-icon"><i class="bi bi-diagram-3" aria-hidden="true"></i></div>
-            <h3 class="feature-title">Redundant Relationship Detection</h3>
-            <p class="feature-desc">
-              An algorithm for Primavera P6 schedules that flags redundant logic links — duplicate
-              relations between the same activities and relations already implied by another path —
-              with lag, duration, and calendar checks.
-            </p>
-            <div class="tag-row"><span class="tag">Primavera P6</span><span class="tag">Graph algorithms</span><span class="tag">Planning</span></div>
-            <div class="card-links">
-              <a href="https://github.com/muhammadbayoumi/Detecting-redundant-relationships" target="_blank" rel="noopener noreferrer">Read the algorithm <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+          <article class="sb-card">
+            <div class="sb-card-header">
+              <h3 class="sb-card-title">Redundant relationship detection</h3>
+            </div>
+            <div class="sb-card-content">
+              <p class="site-kv-note">
+                An algorithm for Primavera P6 schedules that flags redundant logic links — duplicate
+                relations between the same activities and relations already implied by another path —
+                with lag, duration, and calendar checks.
+              </p>
+              <div class="site-badges site-kv-actions">
+                <span class="sb-badge">Primavera P6</span><span class="sb-badge">Graph algorithms</span><span class="sb-badge">Planning</span>
+              </div>
+            </div>
+            <div class="sb-card-footer site-actions">
+              <a class="sb-btn sb-btn--outline sb-btn--tiny sb-focus-ring" href="https://github.com/muhammadbayoumi/Detecting-redundant-relationships" target="_blank" rel="noopener noreferrer">
+                <span class="sb-btn-label">Read the algorithm</span><span class="sb-btn-icon" aria-hidden="true"><svg class="sb-icon"><use href="#i-arrow-up-right"/></svg></span>
+              </a>
             </div>
           </article>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <div class="glow-line" aria-hidden="true"></div>
-
-    <!-- ══════ SKILLS ══════ -->
-    <section class="section-dark3 py-section" id="skills" aria-labelledby="skills-title">
-      <div class="container">
-        <div class="section-tag">Toolkit</div>
-        <h2 id="skills-title" class="section-title">Skills</h2>
-
-        <div class="skills-grid">
-          <div class="skills-group">
-            <div class="skills-group-title"><i class="bi bi-building" aria-hidden="true"></i> Engineering</div>
-            <div class="badge-row">
-              <span class="badge-skill">Cost Estimation</span>
-              <span class="badge-skill">BOQ / Quantity Surveying</span>
-              <span class="badge-skill">Tendering</span>
-              <span class="badge-skill">Technical Office</span>
-              <span class="badge-skill">Project Management</span>
-              <span class="badge-skill">Contract Administration</span>
-              <span class="badge-skill">BIM Coordination</span>
+      <!-- ══ Skills ══ -->
+      <section class="sb-section sb-section--horizontal" id="skills" aria-labelledby="skills-title">
+        <div class="sb-section-summary">
+          <h2 id="skills-title">Skills</h2>
+          <div class="sb-section-description">Engineering, software, data, and tools</div>
+        </div>
+        <div>
+          <div class="sb-card">
+            <div class="sb-card-content">
+              <p class="site-kv-label">Engineering</p>
+              <div class="site-badges">
+                <span class="sb-badge">Cost estimation</span><span class="sb-badge">BOQ / quantity surveying</span><span class="sb-badge">Tendering</span><span class="sb-badge">Technical office</span><span class="sb-badge">Project management</span><span class="sb-badge">Contract administration</span><span class="sb-badge">BIM coordination</span>
+              </div>
             </div>
-          </div>
-          <div class="skills-group">
-            <div class="skills-group-title"><i class="bi bi-code-slash" aria-hidden="true"></i> Software</div>
-            <div class="badge-row">
-              <span class="badge-skill">C# / .NET</span>
-              <span class="badge-skill">VSTO</span>
-              <span class="badge-skill">Excel Interop</span>
-              <span class="badge-skill">COM Interop</span>
-              <span class="badge-skill">SQLite</span>
-              <span class="badge-skill">ETL Pipelines</span>
-              <span class="badge-skill">Google Sheets API</span>
-              <span class="badge-skill">HTML / CSS / JS</span>
+            <div class="sb-card-content">
+              <p class="site-kv-label">Software</p>
+              <div class="site-badges">
+                <span class="sb-badge">C# / .NET</span><span class="sb-badge">VSTO</span><span class="sb-badge">Excel Interop</span><span class="sb-badge">COM Interop</span><span class="sb-badge">SQLite</span><span class="sb-badge">ETL pipelines</span><span class="sb-badge">Google Sheets API</span><span class="sb-badge">HTML / CSS / JS</span>
+              </div>
             </div>
-          </div>
-          <div class="skills-group">
-            <div class="skills-group-title"><i class="bi bi-bar-chart-line" aria-hidden="true"></i> Data &amp; Analytics</div>
-            <div class="badge-row">
-              <span class="badge-skill">Python</span>
-              <span class="badge-skill">SQL</span>
-              <span class="badge-skill">Tableau</span>
-              <span class="badge-skill">Data Analysis &amp; Visualization</span>
+            <div class="sb-card-content">
+              <p class="site-kv-label">Data and analytics</p>
+              <div class="site-badges">
+                <span class="sb-badge">Python</span><span class="sb-badge">SQL</span><span class="sb-badge">Tableau</span><span class="sb-badge">Data analysis and visualization</span>
+              </div>
             </div>
-          </div>
-          <div class="skills-group">
-            <div class="skills-group-title"><i class="bi bi-tools" aria-hidden="true"></i> Tools</div>
-            <div class="badge-row">
-              <span class="badge-skill">AutoCAD</span>
-              <span class="badge-skill">Revit</span>
-              <span class="badge-skill">Navisworks</span>
-              <span class="badge-skill">SAP ERP</span>
-              <span class="badge-skill">Agile</span>
+            <div class="sb-card-content">
+              <p class="site-kv-label">Tools</p>
+              <div class="site-badges">
+                <span class="sb-badge">AutoCAD</span><span class="sb-badge">Revit</span><span class="sb-badge">Navisworks</span><span class="sb-badge">SAP ERP</span><span class="sb-badge">Agile</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <div class="glow-line" aria-hidden="true"></div>
-
-    <!-- ══════ CERTIFICATIONS ══════ -->
-    <section class="section-dark1 py-section" id="certifications" aria-labelledby="certs-title">
-      <div class="container">
-        <div class="section-tag">Credentials</div>
-        <h2 id="certs-title" class="section-title">Certifications</h2>
-
-        <div class="card-grid">
-          <div class="feature-card">
-            <div class="feature-icon gold"><i class="bi bi-kanban" aria-hidden="true"></i></div>
-            <h3 class="feature-title">Project Management</h3>
-            <ul class="cert-list">
-              <li>IPMA Level D® — Certified Project Manager Associate</li>
-              <li>IBM — Delivering Quality Work with Agility</li>
-            </ul>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon gold"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i></div>
-            <h3 class="feature-title">Data &amp; Analytics</h3>
-            <ul class="cert-list">
-              <li>Tableau Business Intelligence Analyst Specialization</li>
-              <li>IBM Data Analysis and Visualization Foundations</li>
-              <li>SQL — HackerRank</li>
-            </ul>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon gold"><i class="bi bi-boxes" aria-hidden="true"></i></div>
-            <h3 class="feature-title">Engineering &amp; BIM</h3>
-            <ul class="cert-list">
-              <li>Autodesk BIM Coordinator Diploma</li>
-              <li>Autodesk Navisworks Manage</li>
-            </ul>
+      <!-- ══ Certifications ══ -->
+      <section class="sb-section sb-section--horizontal" id="certifications" aria-labelledby="certs-title">
+        <div class="sb-section-summary">
+          <h2 id="certs-title">Certifications</h2>
+          <div class="sb-section-description">Project management, data, and BIM credentials</div>
+        </div>
+        <div>
+          <div class="sb-card">
+            <div class="sb-card-content">
+              <p class="site-kv-label">Project management</p>
+              <p class="site-kv-value site-kv-value--primary">IPMA Level D® — Certified Project Manager Associate</p>
+              <p class="site-kv-note">IBM — Delivering Quality Work with Agility</p>
+            </div>
+            <div class="sb-card-content">
+              <p class="site-kv-label">Data and analytics</p>
+              <p class="site-kv-value site-kv-value--primary">Tableau Business Intelligence Analyst Specialization</p>
+              <p class="site-kv-note">IBM Data Analysis and Visualization Foundations · SQL (HackerRank)</p>
+            </div>
+            <div class="sb-card-content">
+              <p class="site-kv-label">Engineering and BIM</p>
+              <p class="site-kv-value site-kv-value--primary">Autodesk BIM Coordinator Diploma</p>
+              <p class="site-kv-note">Autodesk Navisworks Manage</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ══════ CONTACT ══════ -->
-    <section class="section-dark0 py-section contact" id="contact" aria-labelledby="contact-title">
-      <div class="container narrow center">
-        <div class="section-tag">Contact</div>
-        <h2 id="contact-title" class="section-title">Let's build something useful.</h2>
-        <p class="section-sub">Construction projects, data problems, or Excel tooling — I'm happy to talk.</p>
-        <div class="cta-row center">
-          <a class="btn-pill-green" href="mailto:muhammad.bayoumi.ali@gmail.com"><i class="bi bi-envelope" aria-hidden="true"></i> muhammad.bayoumi.ali@gmail.com</a>
+      <!-- ══ Contact ══ -->
+      <section class="sb-section sb-section--horizontal" id="contact" aria-labelledby="contact-title">
+        <div class="sb-section-summary">
+          <h2 id="contact-title">Contact</h2>
+          <div class="sb-section-description">Email, LinkedIn, and GitHub</div>
         </div>
-        <div class="social-row">
-          <a class="social-link" href="https://www.linkedin.com/in/muhammad-bayoumi-ali/" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin" aria-hidden="true"></i> LinkedIn</a>
-          <a class="social-link" href="https://github.com/muhammadbayoumi" target="_blank" rel="noopener noreferrer"><i class="bi bi-github" aria-hidden="true"></i> GitHub</a>
-          <a class="social-link" href="https://muhammadbayoumi.github.io/mbiXsite/install.html"><i class="bi bi-grid-1x2" aria-hidden="true"></i> mbiX</a>
+        <div>
+          <div class="sb-card">
+            <div class="sb-card-content site-kv">
+              <div class="site-kv-stack">
+                <div>
+                  <p class="site-kv-label">Email</p>
+                  <p class="site-kv-value"><a class="sb-text-link" href="mailto:muhammad.bayoumi.ali@gmail.com">muhammad.bayoumi.ali@gmail.com</a></p>
+                </div>
+                <div>
+                  <p class="site-kv-label">LinkedIn</p>
+                  <p class="site-kv-value"><a class="sb-text-link" href="https://www.linkedin.com/in/muhammad-bayoumi-ali/" target="_blank" rel="noopener noreferrer">linkedin.com/in/muhammad-bayoumi-ali</a></p>
+                </div>
+                <div>
+                  <p class="site-kv-label">GitHub</p>
+                  <p class="site-kv-value"><a class="sb-text-link" href="https://github.com/muhammadbayoumi" target="_blank" rel="noopener noreferrer">github.com/muhammadbayoumi</a></p>
+                </div>
+                <div class="site-kv-actions">
+                  <a class="sb-btn sb-btn--primary sb-btn--small sb-focus-ring" href="mailto:muhammad.bayoumi.ali@gmail.com">
+                    <span class="sb-btn-icon" aria-hidden="true"><svg class="sb-icon"><use href="#i-mail"/></svg></span><span class="sb-btn-label">Send email</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <span>&copy; <span data-current-year>2026</span> Muhammad Bayoumi</span>
-      <a href="#top" class="social-link">Back to top <i class="bi bi-arrow-up" aria-hidden="true"></i></a>
+  <!-- Separator [SB-UI-SEPARATOR] + SiteFooter [SB-DS-FOOTER apps/design-system/components/site-footer.tsx:5-28] -->
+  <div class="sb-page"><hr class="sb-separator"/></div>
+  <footer class="sb-page sb-footer">
+    <div class="sb-footer-row">
+      <p class="sb-footer-text">&copy; <span data-current-year>2026</span> Muhammad Bayoumi</p>
+      <p class="sb-footer-text">
+        Built on the <a href="https://supabase.com/design-system" target="_blank" rel="noopener noreferrer">Supabase Design System</a>.
+        The source code is available on <a href="https://github.com/muhammadbayoumi/muhammadbayoumi.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>.
+      </p>
     </div>
   </footer>
 </body>

@@ -1,0 +1,708 @@
+/*
+ * components.css — Supabase Design System components, translated from their
+ * Tailwind class strings into plain CSS so the site needs no build step.
+ *
+ * Each block names the upstream component and the lines it came from, and
+ * quotes the original classes. Tailwind classes resolve to Tailwind 4.2.4
+ * output [TW]. Source IDs are defined in DESIGN.md → "Source registry".
+ * All Supabase paths are at commit e3febf3.
+ *
+ * Class prefix: `sb-` = a Supabase component. Nothing else may use it.
+ */
+
+/* ═══════════════ focus-ring ═══════════════
+   [SB-CFG-UTIL packages/config/css/utilities.css:196-198]
+   "outline-hidden focus-visible:ring-2 focus-visible:ring-ring
+    focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+   Tailwind composes box-shadow as ring-offset, ring, then the element's own
+   shadow [TW lib.js ring utilities]; `--sb-shadow` carries that own shadow. */
+.sb-focus-ring {
+  outline-style: none;
+}
+@media (forced-colors: active) {
+  .sb-focus-ring {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+}
+.sb-focus-ring:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--background),
+    0 0 0 4px var(--ring),
+    var(--sb-shadow, 0 0 #0000);
+}
+
+/* ═══════════════ Button ═══════════════
+   [SB-UI-BUTTON packages/ui/src/components/Button/Button.tsx:14-35] base */
+.sb-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-align: center;
+  font-weight: var(--font-weight-medium);
+  transition-property: background-color, border-color, color, scale;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-duration: 200ms;
+  border-radius: var(--radius-md);
+  border-width: 1px;
+  border-style: solid;
+  white-space: nowrap;
+  box-shadow: var(--sb-shadow, 0 0 #0000);
+  --button-shadow-opacity: 0.04;
+  --button-edge-strength: calc(var(--contrast-border, 0.275625) / 0.275625 * 0.6);
+  --button-edge-color: var(--colors-black);
+  --button-shadow-drop: 0 1px 3px 0 hsl(var(--colors-black) / var(--button-shadow-opacity));
+  --button-shadow-raised: var(--button-shadow-drop),
+    inset 0 1px 0 0 hsl(var(--button-edge-color) / calc(0.04 * var(--button-edge-strength))),
+    inset 0 0 0 1px hsl(var(--button-edge-color) / calc(0.06 * var(--button-edge-strength))),
+    inset 0 0 0 1px hsl(var(--button-edge-color) / calc(0.1 * var(--button-edge-strength)));
+  --button-shadow-default: var(--button-shadow-drop),
+    inset 0 1px 0 0 hsl(var(--button-edge-color) / calc(0.04 * var(--button-edge-strength))),
+    inset 0 0 0 1px hsl(var(--colors-black) / calc(0.06 * var(--button-edge-strength))),
+    inset 0 -1px 0 0 hsl(var(--colors-black) / calc(0.06 * var(--button-edge-strength))),
+    inset 0 0 0 1px hsl(var(--button-edge-color) / calc(0.1 * var(--button-edge-strength)));
+}
+/* `dark:` variant = &:where([data-theme*='dark'] *, [data-theme*='dark'])
+   [SB-CFG-VAR packages/config/css/variants.css:13] */
+.sb-btn:where([data-theme*='dark'] *) {
+  --button-shadow-opacity: 0.2;
+  --button-edge-strength: calc(var(--contrast-border, 0.275625) / 0.275625);
+  --button-edge-color: var(--colors-white);
+}
+/* "space-x-2" [TW lib.js space-x] */
+:where(.sb-btn > :not(:last-child)) {
+  margin-inline-end: calc(var(--spacing) * 2);
+}
+/* "[&:not([aria-haspopup])]:motion-safe:active:scale-[0.97]" [SB-UI-BUTTON:25] */
+@media (prefers-reduced-motion: no-preference) {
+  .sb-btn:not([aria-haspopup]):active {
+    scale: 0.97;
+  }
+}
+/* Label wrapper: <span className="truncate"> [SB-UI-BUTTON:320] */
+.sb-btn-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* variant: primary [SB-UI-BUTTON:39-47] */
+.sb-btn--primary {
+  border-width: 0;
+  background-color: var(--primary-solid);
+  background-image: linear-gradient(to bottom, hsl(var(--colors-white) / 0.015), hsl(var(--colors-black) / 0.01));
+  color: var(--primary-solid-foreground);
+  --sb-shadow: var(--button-shadow-raised);
+}
+.sb-btn--primary:hover,
+.sb-btn--primary[data-state='open'] {
+  background-color: var(--primary-solid-hover);
+}
+
+/* variant: default [SB-UI-BUTTON:48-55] */
+.sb-btn--default {
+  color: var(--foreground);
+  border-width: 0;
+  background-color: var(--card);
+  --sb-shadow: var(--button-shadow-default);
+}
+.sb-btn--default:hover,
+.sb-btn--default[data-state='open'] {
+  background-color: var(--muted);
+}
+.sb-btn--default:where([data-theme*='dark'] *) {
+  background-color: var(--muted);
+  background-image: linear-gradient(to bottom, hsl(var(--colors-white) / 0.015), hsl(var(--colors-black) / 0.01));
+}
+.sb-btn--default:where([data-theme*='dark'] *):hover,
+.sb-btn--default:where([data-theme*='dark'] *)[data-state='open'] {
+  background-color: var(--accent);
+}
+
+/* variant: outline [SB-UI-BUTTON:64-69] */
+.sb-btn--outline {
+  color: var(--foreground);
+  background-color: transparent;
+  border-color: var(--border-strong);
+}
+.sb-btn--outline:hover {
+  border-color: var(--foreground-muted);
+}
+.sb-btn--outline[data-state='open'] {
+  border-color: var(--border-stronger);
+}
+
+/* variant: text [SB-UI-BUTTON:86-92] */
+.sb-btn--text {
+  color: var(--foreground);
+  border-color: transparent;
+  --sb-shadow: 0 0 #0000;
+}
+.sb-btn--text:hover,
+.sb-btn--text[data-state='open'] {
+  background-color: var(--accent);
+}
+
+/* sizes: SIZE_VARIANTS [SB-UI-CONST packages/ui/src/lib/constants.ts:45-65,95-101]
+   + per-size radius [SB-UI-BUTTON:116-122]. `md:` = 48rem [TW theme.css:328]. */
+.sb-btn--tiny {
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+  padding: calc(var(--spacing) * 1) calc(var(--spacing) * 2.5);
+  height: 26px;
+  border-radius: var(--radius-md);
+}
+.sb-btn--small {
+  font-size: var(--text-base);
+  line-height: calc(var(--spacing) * 4);
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  height: 34px;
+  border-radius: calc(var(--radius-md) * (1 + (34 / 26 - 1) * 0.35));
+}
+.sb-btn--medium {
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
+  height: 38px;
+  border-radius: calc(var(--radius-md) * (1 + (38 / 26 - 1) * 0.35));
+}
+@media (min-width: 48rem) {
+  .sb-btn--small {
+    font-size: var(--text-sm);
+  }
+  .sb-btn--medium {
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+  }
+}
+/* Icon-only trigger: className="px-1" [SB-DS-THEMESWITCHER apps/design-system/components/theme-switcher-dropdown.tsx:44] */
+.sb-btn--icon {
+  padding-inline: calc(var(--spacing) * 1);
+}
+
+/* Icon container [SB-UI-BUTTON:146-170]
+   "inline-flex items-center justify-center shrink-0" + size and tint. Rendered as
+   <span> not <div>: a <button> only accepts phrasing content [EXT-HTML-BUTTON]. */
+.sb-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--tertiary-foreground);           /* text-foreground-lighter (default/outline/text) */
+}
+.sb-btn--primary .sb-btn-icon {
+  color: color-mix(in oklab, var(--primary-solid-foreground) 50%, transparent); /* text-primary-solid-foreground/50 */
+}
+.sb-btn--tiny .sb-btn-icon svg { width: 14px; height: 14px; }
+.sb-btn--small .sb-btn-icon svg { width: 18px; height: 18px; }
+.sb-btn--medium .sb-btn-icon svg { width: 20px; height: 20px; }
+/* Open trigger icon: "group-data-open:text-foreground" [SB-DS-THEMESWITCHER:35] */
+.sb-btn[data-state='open'] .sb-btn-icon {
+  color: var(--foreground);
+}
+
+/* ═══════════════ Badge (default) ═══════════════
+   [SB-UI-BADGE packages/ui/src/components/shadcn/ui/badge.tsx:7,11]
+   "inline-flex items-center gap-1 justify-center rounded-full whitespace-nowrap
+    tracking-[0.07em] uppercase font-medium text-[9px] leading-none px-[5.5px] py-[3px]"
+   "bg-surface-75 text-foreground-light border border-strong" */
+.sb-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing) * 1);
+  border-radius: calc(infinity * 1px);
+  white-space: nowrap;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+  font-size: 9px;
+  line-height: 1;
+  padding: 3px 5.5px;
+  background-color: var(--background-surface-75);
+  color: var(--foreground-light);
+  border: 1px solid var(--border-strong);
+}
+
+/* ═══════════════ Card ═══════════════
+   [SB-UI-CARD packages/ui/src/components/shadcn/ui/card.tsx] */
+.sb-card {                                      /* :10 "overflow-hidden rounded-lg border bg-surface-100 text-card-foreground shadow-xs" */
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background-color: var(--background-surface-100);
+  color: var(--card-foreground);
+  box-shadow: var(--shadow-xs);
+}
+.sb-card-header {                               /* :23 "flex flex-col space-y-1.5 py-4 px-(--card-padding-x) border-b" */
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--spacing) * 4) var(--card-padding-x);
+  border-bottom: 1px solid var(--border);
+}
+:where(.sb-card-header > :not(:last-child)) {
+  margin-block-end: calc(var(--spacing) * 1.5);
+}
+.sb-card-title {                                /* :32 "text-xs font-mono uppercase" */
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+.sb-card-description {                          /* :41 "text-sm text-foreground-lighter" */
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  color: var(--foreground-lighter);
+}
+.sb-card-content {                              /* :49 "py-4 px-(--card-padding-x) border-b last:border-none" */
+  padding: calc(var(--spacing) * 4) var(--card-padding-x);
+  border-bottom: 1px solid var(--border);
+}
+.sb-card-content:last-child {
+  border-bottom-style: none;
+}
+.sb-card-footer {                               /* :60 "flex items-center py-4 px-(--card-padding-x)" */
+  display: flex;
+  align-items: center;
+  padding: calc(var(--spacing) * 4) var(--card-padding-x);
+}
+
+/* ═══════════════ Separator ═══════════════
+   [SB-UI-SEPARATOR packages/ui/src/components/shadcn/ui/separator.tsx] "shrink-0 bg-border-muted h-px w-full" */
+.sb-separator {
+  flex-shrink: 0;
+  background-color: var(--border-muted);
+  height: 1px;
+  width: 100%;
+  border: 0;
+}
+
+/* ═══════════════ NavMenu ═══════════════
+   [SB-UI-NAVMENU packages/ui/src/components/NavMenu/index.tsx:15-16,36]
+   nav "border-b"; ul "flex gap-5"; li "inline-flex items-center justify-center
+   whitespace-nowrap text-sm transition-colors focus-ring text-foreground-lighter
+   hover:text-foreground data-[state=active]:text-foreground
+   data-[state=active]:border-foreground border-b-2 border-transparent *:py-1.5"
+   Deviations (see DESIGN.md → Deviations): no role="menu"/aria-selected, active
+   link marked with aria-current [EXT-APG-LANDMARK], ring moved onto the <a>
+   [SB-DOC-A11Y accessibility.mdx "When the focused element is not the thing…"]. */
+.sb-navmenu {
+  border-bottom: 1px solid var(--border);
+}
+.sb-navmenu-list {
+  display: flex;
+  gap: calc(var(--spacing) * 5);
+}
+.sb-navmenu-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  color: var(--foreground-lighter);
+  border-bottom: 2px solid transparent;
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+  transition-duration: var(--default-transition-duration);
+  transition-timing-function: var(--default-transition-timing-function);
+}
+.sb-navmenu-item > * {
+  padding-block: calc(var(--spacing) * 1.5);
+}
+.sb-navmenu-item:hover {
+  color: var(--foreground);
+}
+.sb-navmenu-item[data-state='active'] {
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+
+/* ═══════════════ DropdownMenu ═══════════════
+   [SB-UI-DROPDOWN packages/ui/src/components/shadcn/ui/dropdown-menu.tsx]
+   Enter/exit animations (tw-animate-css) are omitted: no source for them is vendored. */
+.sb-dropdown {                                  /* :70 content */
+  position: absolute;
+  z-index: 50;
+  min-width: calc(var(--spacing) * 32);
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-overlay);
+  background-color: var(--background-overlay-default);
+  padding: calc(var(--spacing) * 1);
+  color: var(--foreground-light);
+  box-shadow: var(--shadow-lg);
+}
+.sb-dropdown[hidden] {
+  display: none;
+}
+.sb-dropdown-label {                            /* :167 "px-2 py-1.5 text-xs text-foreground-lighter" */
+  padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 2);
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+  color: var(--foreground-lighter);
+}
+.sb-dropdown-separator {                        /* :179 "-mx-1 my-1 h-px bg-border-overlay" */
+  margin: calc(var(--spacing) * 1) calc(var(--spacing) * -1);
+  height: 1px;
+  background-color: var(--border-overlay);
+}
+.sb-dropdown-radio {                            /* :143-144 radio item */
+  position: relative;
+  display: flex;
+  width: 100%;
+  cursor: default;
+  user-select: none;
+  align-items: center;
+  border-radius: var(--radius-xs);
+  padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 2) calc(var(--spacing) * 1.5) calc(var(--spacing) * 8);
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+  outline-style: none;
+  text-align: start;
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+  transition-duration: var(--default-transition-duration);
+  transition-timing-function: var(--default-transition-timing-function);
+}
+.sb-dropdown-radio:focus {
+  background-color: var(--background-overlay-hover);
+}
+.sb-dropdown-indicator {                        /* :150-154 "absolute left-2 flex h-3.5 w-3.5 items-center justify-center" + Circle "h-2 w-2 fill-current" */
+  position: absolute;
+  left: calc(var(--spacing) * 2);
+  display: flex;
+  width: calc(var(--spacing) * 3.5);
+  height: calc(var(--spacing) * 3.5);
+  align-items: center;
+  justify-content: center;
+}
+.sb-dropdown-indicator svg {
+  width: calc(var(--spacing) * 2);
+  height: calc(var(--spacing) * 2);
+  fill: currentColor;
+  visibility: hidden;
+}
+.sb-dropdown-radio[aria-checked='true'] .sb-dropdown-indicator svg {
+  visibility: visible;
+}
+
+/* ═══════════════ FloatingPlate + SkipToContent ═══════════════
+   [SB-UI-FLOATINGPLATE packages/ui/src/components/FloatingPlate/FloatingPlate.tsx:38] "inline-flex bg-popover rounded-lg"
+   [SB-UIP-SKIP packages/ui-patterns/src/SkipToContent/SkipToContent.tsx]
+   "fixed top-0 left-[10px] z-[100] w-fit -translate-y-full
+    focus-within:translate-y-[10px] transition-transform duration-200 ease-out" */
+.sb-skip {
+  display: inline-flex;
+  background-color: var(--popover);
+  border-radius: var(--radius-lg);
+  position: fixed;
+  top: 0;
+  left: 10px;
+  z-index: 100;
+  width: fit-content;
+  translate: 0 -100%;
+  transition-property: transform, translate, scale, rotate;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+.sb-skip:focus-within {
+  translate: 0 10px;
+}
+
+/* ═══════════════ PageContainer ═══════════════
+   [SB-UIP-PAGECONTAINER packages/ui-patterns/src/PageContainer/index.tsx:9-16]
+   "mx-auto w-full @container px-6 xl:px-10" + size. `xl:` = 80rem [TW theme.css:330]. */
+.sb-page {
+  margin-inline: auto;
+  width: 100%;
+  container-type: inline-size;
+  padding-inline: calc(var(--spacing) * 6);
+  max-width: var(--page-default);
+}
+.sb-page--small {
+  max-width: var(--page-small);
+}
+@media (min-width: 80rem) {
+  .sb-page {
+    padding-inline: calc(var(--spacing) * 10);
+  }
+}
+
+/* ═══════════════ PageHeader ═══════════════
+   [SB-UIP-PAGEHEADER packages/ui-patterns/src/PageHeader/index.tsx:13-16,131,172,198-201,228]
+   root "flex flex-col gap-4 w-full pt-12"; meta "flex flex-col @xl:flex-row
+   @xl:justify-between @xl:items-center gap-4"; summary "flex flex-col gap-1";
+   aside "flex items-center gap-2 shrink-0". `@xl` = 36rem [TW theme.css:339]. */
+.sb-page-header {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 4);
+  width: 100%;
+  padding-top: calc(var(--spacing) * 12);
+}
+.sb-page-header-meta {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 4);
+}
+.sb-page-header-summary {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 1);
+}
+.sb-page-header-description {                   /* :172 "heading-subSection text-foreground-light" */
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  color: var(--foreground-light);
+}
+.sb-page-header-aside {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+}
+@container (min-width: 36rem) {
+  .sb-page-header-meta {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* ═══════════════ PageSection ═══════════════
+   [SB-UIP-PAGESECTION packages/ui-patterns/src/PageSection/index.tsx:9-17,68,89,110-116]
+   root "pt-12 last:pb-12 gap-6"; horizontal "grid @3xl:grid-cols-[1fr_2fr]
+   @3xl:gap-12"; summary "flex flex-col gap-1"; title h2 "heading-section";
+   description "text-sm text-foreground-light" + text-box-trim: trim-end.
+   `@3xl` = 48rem [TW theme.css:341]. */
+.sb-section {
+  padding-top: calc(var(--spacing) * 12);
+  gap: calc(var(--spacing) * 6);
+}
+.sb-section:last-child {
+  padding-bottom: calc(var(--spacing) * 12);
+}
+.sb-section--vertical {
+  display: flex;
+  flex-direction: column;
+}
+.sb-section--horizontal {
+  display: grid;
+}
+@container (min-width: 48rem) {
+  .sb-section--horizontal {
+    grid-template-columns: 1fr 2fr;
+    gap: calc(var(--spacing) * 12);
+  }
+}
+.sb-section-summary {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 1);
+}
+.sb-section-description {
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  color: var(--foreground-light);
+  text-box-trim: trim-end;
+}
+
+/* ═══════════════ MetricCard ═══════════════
+   [SB-UIP-METRICCARD packages/ui-patterns/src/MetricCard/index.tsx:51,80-81,126-128,154,181]
+   card "group-hover:bg-surface-200 transition-colors"; header "p-card flex flex-row
+   items-center justify-between gap-2 pb-0 relative"; label = CardTitle + "flex
+   items-center gap-2 text-foreground-light"; content = CardContent + "p-card pt-0
+   flex-1 flex h-full items-start gap-1 overflow-hidden border-b-0 flex-col";
+   value "font-normal text-xl tabular-nums". */
+.sb-metric-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 2);
+  padding: var(--spacing-card) var(--spacing-card) 0;
+}
+.sb-metric-label {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  color: var(--foreground-light);
+}
+.sb-metric-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--spacing) * 1);
+  height: 100%;
+  overflow: hidden;
+  padding: 0 var(--spacing-card) var(--spacing-card);
+  border-bottom-style: none;
+}
+.sb-metric-value {
+  font-weight: var(--font-weight-normal);
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--line-height);
+  font-variant-numeric: tabular-nums;
+}
+
+.sb-metric-diff {                               /* MetricCardDifferential, default variant "text-foreground-light tabular-nums text-sm" [SB-UIP-METRICCARD:203-209] */
+  color: var(--foreground-light);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+
+/* ═══════════════ TopNavigation ═══════════════
+   [SB-DS-TOPNAV apps/design-system/components/top-navigation.tsx:16-18,29]
+   header "sticky top-0 z-50 w-full bg-studio/95 backdrop-blur-sm
+   supports-backdrop-filter:bg-studio/60 border-b"; nav "py-3 w-full flex";
+   inner "flex flex-row items-center gap-6 justify-between";
+   title "line-clamp-1 lg:text-2xl text-xl" (an <h1> upstream, so it also takes
+   the heading font [SB-DS-GLOBALS:103-116]). `lg:` = 64rem [TW theme.css:329]. */
+.sb-topnav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background-color: color-mix(in oklab, var(--background) 95%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+@supports (backdrop-filter: var(--tw)) {   /* "supports-backdrop-filter:" [TW lib.js supports variant] */
+  .sb-topnav {
+    background-color: color-mix(in oklab, var(--background) 60%, transparent);
+  }
+}
+.sb-topnav-bar {
+  display: flex;
+  width: 100%;
+  padding-block: calc(var(--spacing) * 3);
+}
+.sb-topnav-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 6);
+}
+.sb-topnav-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--line-height);
+}
+@media (min-width: 64rem) {
+  .sb-topnav-title {
+    font-size: var(--text-2xl);
+    line-height: var(--text-2xl--line-height);
+  }
+}
+
+/* ═══════════════ SiteFooter ═══════════════
+   [SB-DS-FOOTER apps/design-system/components/site-footer.tsx:5-13]
+   "py-6"; row "flex flex-col items-center justify-between gap-4 md:flex-row";
+   p "text-balance text-center text-sm leading-loose text-foreground-muted md:text-left";
+   a "font-medium underline underline-offset-4 hover:text-foreground-lighter" */
+.sb-footer {
+  padding-block: calc(var(--spacing) * 6);
+}
+.sb-footer-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 4);
+}
+.sb-footer-text {
+  text-wrap: balance;
+  text-align: center;
+  font-size: var(--text-sm);
+  line-height: var(--leading-loose);
+  color: var(--foreground-muted);
+}
+.sb-footer-text a {
+  font-weight: var(--font-weight-medium);
+  text-decoration-line: underline;
+  text-underline-offset: 4px;
+}
+.sb-footer-text a:hover {
+  color: var(--foreground-lighter);
+}
+@media (min-width: 48rem) {
+  .sb-footer-row {
+    flex-direction: row;
+  }
+  .sb-footer-text {
+    text-align: left;
+  }
+}
+
+/* ═══════════════ Typography ═══════════════
+   [SB-DS-TYPO-EX apps/design-system/registry/default/example/typography-*.tsx] */
+.sb-h1 {                                        /* typography-h1 "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl";
+                                                   weight resolves to semibold via [SB-DS-GLOBALS:103-116], which is unlayered */
+  font-size: var(--text-4xl);
+  line-height: var(--text-4xl--line-height);
+  letter-spacing: var(--tracking-tight);
+}
+@media (min-width: 64rem) {
+  .sb-h1 {
+    font-size: var(--text-5xl);
+    line-height: var(--text-5xl--line-height);
+  }
+}
+.sb-lead {                                      /* typography-lead "text-xl text-muted-foreground" */
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--line-height);
+  color: var(--muted-foreground);
+}
+.sb-p {                                         /* typography-p "leading-7 [&:not(:first-child)]:mt-6" */
+  line-height: calc(var(--spacing) * 7);
+}
+.sb-p:not(:first-child) {
+  margin-top: calc(var(--spacing) * 6);
+}
+.sb-muted {                                     /* typography-muted "text-sm text-muted-foreground" */
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  color: var(--muted-foreground);
+}
+
+/* text-link [SB-CFG-TYPO packages/config/typography.css:40-42]
+   "text-foreground-light underline underline-offset-4 decoration-inherit
+    hover:decoration-foreground transition-colors hover:text-foreground" */
+.sb-text-link {
+  color: var(--foreground-light);
+  text-decoration-line: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: inherit;
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+  transition-duration: var(--default-transition-duration);
+  transition-timing-function: var(--default-transition-timing-function);
+}
+.sb-text-link:hover {
+  color: var(--foreground);
+  text-decoration-color: var(--foreground);
+}
+
+/* Icons: Lucide [SB-DOC-ICONS icons.mdx "UI icons"] from [LUCIDE lucide-static@0.436.0].
+   Root attributes copied from the Lucide SVGs: fill none, stroke currentColor,
+   stroke-width 2, round caps and joins. */
+.sb-icon {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}

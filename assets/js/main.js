@@ -1,7 +1,8 @@
-// Muhammad Bayoumi — personal site
+// Muhammad Bayoumi — personal site.
+// Behaviour sources are cited as [ID]; the IDs are defined in DESIGN.md → "Source registry".
 
-// Years since a start year, e.g. <span data-years-since="2019">7</span>.
-// The HTML carries a fallback number so the page reads correctly without JS.
+// ── Content counters (site content, not design) ──
+// <span data-years-since="2019">7</span>: the HTML carries a fallback number.
 const thisYear = new Date().getFullYear();
 document.querySelectorAll('[data-years-since]').forEach(el => {
   const start = parseInt(el.getAttribute('data-years-since'), 10);
@@ -11,36 +12,156 @@ document.querySelectorAll('[data-current-year]').forEach(el => {
   el.textContent = String(thisYear);
 });
 
-// Navbar: shadow once scrolled, mobile menu toggle.
-const navbar = document.getElementById('navbar');
-const toggler = navbar.querySelector('.navbar-toggler');
-const menu = document.getElementById('navMenu');
+// ── Theme ──
+// next-themes behaviour [EXT-NEXT-THEMES] with Supabase's settings: themes dark/light,
+// default "system", attribute data-theme, storage key "theme", no transitions while
+// switching [SB-COMMON-PROVIDERS packages/common/Providers.tsx:22-26].
+const STORAGE_KEY = 'theme';
+const media = window.matchMedia('(prefers-color-scheme: dark)');
 
-const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 10);
-onScroll();
-window.addEventListener('scroll', onScroll, { passive: true });
-
-const setOpen = open => {
-  navbar.classList.toggle('open', open);
-  toggler.setAttribute('aria-expanded', String(open));
-  toggler.querySelector('i').className = open ? 'bi bi-x-lg' : 'bi bi-list';
+const readTheme = () => {
+  try { return localStorage.getItem(STORAGE_KEY) || 'system'; } catch { return 'system'; }
 };
-toggler.addEventListener('click', () => setOpen(!navbar.classList.contains('open')));
-menu.addEventListener('click', e => { if (e.target.closest('a')) setOpen(false); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+const resolve = theme => (theme === 'system' ? (media.matches ? 'dark' : 'light') : theme);
 
-// Highlight the nav link of the section in view.
-const links = [...menu.querySelectorAll('.nav-link')];
-const sections = links
-  .map(a => document.querySelector(a.getAttribute('href')))
-  .filter(Boolean);
+const applyTheme = theme => {
+  const resolved = resolve(theme);
+  // disableTransitionOnChange: suspend transitions for one frame [EXT-NEXT-THEMES]
+  const style = document.createElement('style');
+  style.textContent = '*,*::before,*::after{transition:none!important}';
+  document.head.appendChild(style);
+  document.documentElement.setAttribute('data-theme', resolved);
+  document.documentElement.style.colorScheme = resolved;
+  window.getComputedStyle(document.body);
+  requestAnimationFrame(() => style.remove());
+  // Trigger icon: Sun when light, Moon otherwise [SB-DS-THEMESWITCHER theme-switcher-dropdown.tsx:45-51]
+  document.querySelectorAll('[data-theme-icon]').forEach(icon => {
+    // SVG elements have no .hidden property; toggle the attribute that preflight hides.
+    icon.toggleAttribute('hidden', icon.getAttribute('data-theme-icon') !== (resolved === 'light' ? 'light' : 'dark'));
+  });
+  menuItems.forEach(item => {
+    const checked = item.dataset.value === theme;
+    item.setAttribute('aria-checked', String(checked));
+    item.setAttribute('data-state', checked ? 'checked' : 'unchecked');
+  });
+};
+
+const setTheme = theme => {
+  try { localStorage.setItem(STORAGE_KEY, theme); } catch { /* storage blocked: theme lasts for this visit */ }
+  applyTheme(theme);
+};
+
+media.addEventListener('change', () => {
+  if (readTheme() === 'system') applyTheme('system');
+});
+
+// ── Theme menu ──
+// Menu button pattern [EXT-APG-MENU-BUTTON] with the keyboard map Radix DropdownMenu
+// implements [EXT-RADIX-DROPDOWN]: Enter/Space/ArrowDown open on the first item,
+// ArrowUp opens on the last, arrows move without wrapping, Home/End jump,
+// Escape closes and returns focus, Tab and outside clicks close.
+const trigger = document.getElementById('theme-trigger');
+const menu = document.getElementById('theme-menu');
+const menuItems = [...menu.querySelectorAll('[role="menuitemradio"]')];
+
+const isOpen = () => trigger.getAttribute('aria-expanded') === 'true';
+
+const openMenu = focusIndex => {
+  menu.hidden = false;
+  trigger.setAttribute('aria-expanded', 'true');
+  trigger.setAttribute('data-state', 'open');
+  menu.setAttribute('data-state', 'open');
+  menuItems[focusIndex].focus();
+};
+
+const closeMenu = ({ restoreFocus = true } = {}) => {
+  if (!isOpen()) return;
+  menu.hidden = true;
+  trigger.setAttribute('aria-expanded', 'false');
+  trigger.setAttribute('data-state', 'closed');
+  menu.setAttribute('data-state', 'closed');
+  if (restoreFocus) trigger.focus();
+};
+
+trigger.addEventListener('click', () => (isOpen() ? closeMenu() : openMenu(0)));
+trigger.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    openMenu(0);
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    openMenu(menuItems.length - 1);
+  }
+});
+
+menu.addEventListener('keydown', e => {
+  const i = menuItems.indexOf(document.activeElement);
+  const focusAt = n => menuItems[Math.max(0, Math.min(menuItems.length - 1, n))].focus();
+  switch (e.key) {
+    case 'ArrowDown': e.preventDefault(); focusAt(i + 1); break;
+    case 'ArrowUp': e.preventDefault(); focusAt(i - 1); break;
+    case 'Home': e.preventDefault(); focusAt(0); break;
+    case 'End': e.preventDefault(); focusAt(menuItems.length - 1); break;
+    case 'Escape': e.preventDefault(); closeMenu(); break;
+    case 'Tab': closeMenu({ restoreFocus: false }); break;
+  }
+});
+
+menuItems.forEach(item => {
+  item.addEventListener('click', () => {
+    setTheme(item.dataset.value);
+    closeMenu();
+  });
+  item.addEventListener('pointermove', () => item.focus());
+});
+
+document.addEventListener('pointerdown', e => {
+  if (isOpen() && !menu.contains(e.target) && !trigger.contains(e.target)) closeMenu({ restoreFocus: false });
+});
+
+applyTheme(readTheme());
+
+// ── Sticky header offset ──
+// `scroll-mt-(--header-height)` needs the real header height [SB-DOC-SKIP skip-to-content.mdx "Usage"].
+const header = document.getElementById('site-header');
+const setHeaderHeight = () =>
+  document.documentElement.style.setProperty('--header-height', header.offsetHeight + 'px');
+setHeaderHeight();
+new ResizeObserver(setHeaderHeight).observe(header);
+
+// ── Section tabs ──
+// NavMenuItem shows data-state="active" [SB-UI-NAVMENU NavMenu/index.tsx:33-34]; the link
+// carries aria-current instead of aria-selected [EXT-MDN-ARIA-CURRENT] — see Deviations.
+const tabItems = [...document.querySelectorAll('.sb-navmenu-item')];
+const tabLinks = tabItems.map(li => li.querySelector('a'));
+const sections = tabLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+// Scroll only the tab row sideways; scrollIntoView() would also move the page
+// and cut short a smooth scroll that is under way.
+const tabList = document.querySelector('.sb-navmenu-list');
+const keepTabVisible = li => {
+  const start = li.getBoundingClientRect().left - tabList.getBoundingClientRect().left + tabList.scrollLeft;
+  const end = start + li.offsetWidth;
+  if (start < tabList.scrollLeft) tabList.scrollLeft = start;
+  else if (end > tabList.scrollLeft + tabList.clientWidth) tabList.scrollLeft = end - tabList.clientWidth;
+};
+
+const setActive = id => {
+  tabItems.forEach((li, n) => {
+    const active = tabLinks[n].getAttribute('href') === '#' + id;
+    li.setAttribute('data-state', active ? 'active' : 'inactive');
+    if (active) {
+      tabLinks[n].setAttribute('aria-current', 'true');
+      keepTabVisible(li);
+    } else {
+      tabLinks[n].removeAttribute('aria-current');
+    }
+  });
+};
 
 if ('IntersectionObserver' in window) {
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
-    });
-  }, { rootMargin: '-45% 0px -50% 0px' });
+    entries.forEach(entry => { if (entry.isIntersecting) setActive(entry.target.id); });
+  }, { rootMargin: '-40% 0px -55% 0px' });
   sections.forEach(s => observer.observe(s));
 }

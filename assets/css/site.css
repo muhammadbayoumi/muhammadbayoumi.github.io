@@ -1,0 +1,129 @@
+/*
+ * site.css — how this page composes the Supabase components.
+ *
+ * No new look is invented here: every rule is a class string copied from a
+ * Supabase example or app file, cited as [ID path:line]. Rules that no
+ * Supabase source covers cite an external reference [EXT-*] and are listed
+ * under "Deviations" in DESIGN.md.
+ */
+
+/* The page follows the "Detail" layout pattern [SB-DOC-LAYOUT ui-patterns/layout.mdx "Detail"],
+   built as in [SB-DS-EX-DETAIL apps/design-system/registry/default/example/page-layout-detail.tsx]. */
+
+/* Section tabs sit inside the sticky header, under the title bar, with the
+   nav's own border removed: "w-full [&>nav]:border-b-0"
+   [SB-UIP-PAGEHEADER packages/ui-patterns/src/PageHeader/index.tsx:252]. */
+.site-tabs > .sb-navmenu {
+  border-bottom-width: 0;
+}
+/* The tab row scrolls sideways on narrow screens instead of wrapping.
+   `no-scrollbar` is Supabase's [SB-CFG-UTIL utilities.css:70-76]; the overflow
+   itself has no Supabase source [EXT-MDN-OVERFLOW] — see Deviations. */
+.site-tabs .sb-navmenu-list {
+  overflow-x: auto;
+}
+
+/* Header actions group: "flex items-center gap-2" [SB-DS-TOPNAV top-navigation.tsx:35] */
+.site-actions {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+}
+
+/* Theme menu placement: DropdownMenuContent align="end" className="w-56"
+   [SB-DS-THEMESWITCHER theme-switcher-dropdown.tsx:54], side bottom with
+   sideOffset = 4 [SB-UI-DROPDOWN dropdown-menu.tsx:81]. Radix positions it with
+   Floating UI; a fixed below-right placement stands in for that — see Deviations. */
+.site-menu {
+  position: relative;
+}
+.site-menu-content {
+  top: calc(100% + 4px);
+  right: 0;
+  width: calc(var(--spacing) * 56);
+}
+
+/* Offset in-page jumps below the sticky header: `scroll-mt-(--header-height)`
+   [SB-DOC-SKIP fragments/skip-to-content.mdx "Usage"]. */
+:root {
+  --header-height: 96px;
+}
+main,
+main [id] {
+  scroll-margin-top: var(--header-height);
+}
+/* Landmark target: tabIndex=-1 + "outline-hidden" [SB-DOC-SKIP "Target landmark"] */
+main:focus {
+  outline-style: none;
+}
+
+/* Header buttons wrap on small screens. PageHeaderAside is "flex items-center
+   gap-2 shrink-0" [SB-UIP-PAGEHEADER:228]; the wrapping row is "flex flex-wrap
+   gap-3" [SB-DS-EX keyboard-shortcut-demo.tsx:12; also radio-group-card-demo.tsx]. */
+.site-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 3);
+}
+
+/* Metric cards: "grid grid-cols-3 gap-2"
+   [SB-STUDIO-METRICS apps/studio/components/interfaces/Observability/DatabaseInfrastructureSection.tsx:148] */
+.site-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(var(--spacing) * 2);
+  padding-top: calc(var(--spacing) * 6);
+}
+
+/* Key–value stack inside a card: CardContent "p-6" → "space-y-4" → label
+   "text-xs text-foreground-lighter mb-1" + value "text-sm" (primary value
+   "text-sm font-medium"), actions "pt-2"
+   [SB-DS-EX-DETAIL page-layout-detail.tsx:70-85]. */
+.site-kv {
+  padding: calc(var(--spacing) * 6);
+}
+:where(.site-kv-stack > :not(:last-child)) {
+  margin-block-end: calc(var(--spacing) * 4);
+}
+.site-kv-label {
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+  color: var(--foreground-lighter);
+  margin-bottom: calc(var(--spacing) * 1);
+}
+.site-kv-value {
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+.site-kv-value--primary {
+  font-weight: var(--font-weight-medium);
+}
+.site-kv-note {                                 /* CardDescription "text-sm text-foreground-lighter" [SB-UI-CARD card.tsx:41] */
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  color: var(--foreground-lighter);
+}
+.site-kv-actions {
+  padding-top: calc(var(--spacing) * 2);
+}
+
+/* Cards stacked in one section: "space-y-4" [SB-DS-EX-DETAIL:71] */
+:where(.site-stack > :not(:last-child)) {
+  margin-block-end: calc(var(--spacing) * 4);
+}
+
+/* Badge rows: badges sit in "flex flex-row gap-2" [SB-DS-EX badge-state.tsx:5];
+   "flex-wrap" is added so long rows wrap, as the "flex flex-wrap gap-3" rows do
+   [SB-DS-EX keyboard-shortcut-demo.tsx:12]. */
+.site-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 2);
+}
+
+/* Prose paragraphs in the story section use Typography p [SB-DS-TYPO-EX typography-p.tsx];
+   colour is text-foreground-light as in PageSectionDescription [SB-UIP-PAGESECTION:110]. */
+.site-prose {
+  color: var(--foreground-light);
+  font-size: var(--text-sm);
+}

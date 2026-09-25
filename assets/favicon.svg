@@ -1,0 +1,6 @@
+<!-- Favicon: background = design-system theme-color #1E1E1E [SB-DS-LAYOUT layout.tsx:22];
+     letters = --primary (dark) oklch(0.76 0.15 157.5) [SB-TOK semantic.css:176]; radius 8/32 ≈ rounded-lg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="8" fill="#1E1E1E"/>
+  <text x="16" y="21.5" text-anchor="middle" font-family="Manrope, Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="oklch(0.76 0.15 157.5)">MB</text>
+</svg>
