@@ -75,6 +75,8 @@ A hard-working, self-motivated engineer with a passion for continuous learning a
 ## 📊 GitHub Stats
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=muhammadbayoumi&show_icons=true&theme=radical&hide_border=true" alt="Muhammad's GitHub Stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=muhammadbayoumi&layout=compact&theme=radical&hide_border=true" alt="Top Languages" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=muhammadbayoumi&theme=radical" alt="Muhammad's GitHub Stats" height="165" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=muhammadbayoumi&theme=radical" alt="Top Languages" height="165" />
+  <br />
+  <img src="https://streak-stats.demolab.com?user=muhammadbayoumi&theme=radical&hide_border=true" alt="GitHub Streak" />
 </div>
