@@ -127,3 +127,12 @@ main:focus {
   color: var(--foreground-light);
   font-size: var(--text-sm);
 }
+
+/* Footer copyright row: the GitHub source mark opens the line, centred on the
+   text — "flex items-center gap-2" [SB-DS-TOPNAV top-navigation.tsx:35].
+   The mark is here at the owner's request — see DESIGN.md → Deviations. */
+.site-footer-copy {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+}

@@ -16,7 +16,7 @@ Look for a source in this order and use the first tier that covers the need:
 
 | Tier | What it is | Examples |
 | --- | --- | --- |
-| **1 — Supabase** | The design system and the Supabase code that uses it | `apps/design-system` (docs, registry examples, site chrome), `packages/ui`, `packages/ui-patterns`, `packages/config`, `packages/common`, and `apps/studio` when it shows how a component is laid out |
+| **1 — Supabase** | The design system and the Supabase code that uses it | `apps/design-system` (docs, registry examples, site chrome), `packages/ui`, `packages/ui-patterns`, `packages/config`, `packages/common`, `apps/www` (supabase.com), and `apps/studio` when it shows how a component is laid out |
 | **2 — What Supabase is built on** | Libraries Supabase names, at the versions it pins | Tailwind CSS 4.2.4 (what a class compiles to), Lucide 0.436.0 (icons), next-themes (theme switching), Radix (widget behaviour) |
 | **3 — Standards** | Used only when tiers 1–2 have nothing | WAI-ARIA APG, WCAG, MDN, the HTML spec |
 
@@ -49,12 +49,12 @@ re-check every cited line number, and update the commit above.
 
 | Prefix | Meaning | File |
 | --- | --- | --- |
-| `sb-` | A Supabase component, translated class for class | `assets/css/components.css` |
+| `sb-` | A Supabase component, translated from its source; any change to it cites a Supabase source too | `assets/css/components.css` |
 | `site-` | How this page arranges those components | `assets/css/site.css` |
 | (none) | Tokens, base elements, and Supabase utilities (`no-scrollbar`, `sr-only`) | `assets/css/tokens.css` |
 
-Never put a `site-` look on an `sb-` class, and never restyle an `sb-` component in
-`site.css`. Both belong upstream.
+`site.css` changes an `sb-` component only where a Supabase source composes it that
+way — for example PageHeader removing NavMenu's border — and cites that source.
 
 ### 5. Adding something new
 
@@ -92,7 +92,11 @@ not UI copy, and are kept as written.
 | SB-DS-FONTS | [`apps/design-system/lib/fonts.ts`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/lib/fonts.ts) — Inter, Manrope, Source Code Pro |
 | SB-DS-LAYOUT | [`apps/design-system/app/layout.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/app/layout.tsx) — `theme-color` |
 | SB-DS-TOPNAV | [`apps/design-system/components/top-navigation.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/components/top-navigation.tsx) |
-| SB-DS-FOOTER | [`apps/design-system/components/site-footer.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/components/site-footer.tsx) |
+| SB-WWW-FOOTER | [`apps/www/components/Footer/index.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/www/components/Footer/index.tsx) — the supabase.com footer |
+| SB-WWW-NAV | [`apps/www/components/Nav/RightClickBrandLogo.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/www/components/Nav/RightClickBrandLogo.tsx) — header logo height `h-6` |
+| SB-WWW-SECTION | [`apps/www/components/Layouts/SectionContainer.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/www/components/Layouts/SectionContainer.tsx) — footer padding |
+| SB-WWW-LIVE | supabase.com measured in Chromium on 2026-09-25 at 375, 700 and 1366px wide: footer body padding 64/72/96px, bar 128px below the columns with 32px above its text, 22px icons, column headings Manrope 600 at 15px, `small` at 12px in the lighter foreground |
+| SB-DS-FOOTER | [`apps/design-system/components/site-footer.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/components/site-footer.tsx) — footer row that stacks on small screens |
 | SB-DS-THEMESWITCHER | [`apps/design-system/components/theme-switcher-dropdown.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/components/theme-switcher-dropdown.tsx) |
 | SB-DS-EX | Registry examples: [`apps/design-system/registry/default/example/`](https://github.com/supabase/supabase/tree/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/registry/default/example) (file named at each use) |
 | SB-DS-EX-DETAIL | [`…/example/page-layout-detail.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/registry/default/example/page-layout-detail.tsx) — the page template |
@@ -106,6 +110,10 @@ not UI copy, and are kept as written.
 | SB-UI-NAVMENU | [`packages/ui/src/components/NavMenu/index.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/components/NavMenu/index.tsx) |
 | SB-UI-FLOATINGPLATE | [`packages/ui/src/components/FloatingPlate/FloatingPlate.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/components/FloatingPlate/FloatingPlate.tsx) |
 | SB-UI-THEMES | [`packages/ui/src/components/ThemeProvider/singleThemes.ts`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/components/ThemeProvider/singleThemes.ts) |
+| SB-UI-ICONBASE | [`packages/ui/src/components/Icon/IconBase.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/components/Icon/IconBase.tsx) — 16×16 viewBox |
+| SB-UI-ICON-GITHUB | [`packages/ui/src/components/Icon/icons/IconGitHubSolid/IconGitHubSolid.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/components/Icon/icons/IconGitHubSolid/IconGitHubSolid.tsx) |
+| SB-UI-ICON-EMAIL | [`packages/ui/src/static/icons/email-icon.svg`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/static/icons/email-icon.svg) — solid envelope |
+| SB-UI-ICON-LINKEDIN | [`packages/ui/src/components/Icon/icons/IconLinkedinSolid/IconLinkedinSolid.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/components/Icon/icons/IconLinkedinSolid/IconLinkedinSolid.tsx) |
 | SB-UIP-PAGECONTAINER | [`packages/ui-patterns/src/PageContainer/index.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui-patterns/src/PageContainer/index.tsx) |
 | SB-UIP-PAGEHEADER | [`packages/ui-patterns/src/PageHeader/index.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui-patterns/src/PageHeader/index.tsx) |
 | SB-UIP-PAGESECTION | [`packages/ui-patterns/src/PageSection/index.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui-patterns/src/PageSection/index.tsx) |
@@ -160,3 +168,12 @@ Every place the site differs from its Supabase source, and why.
 | Theme trigger | Icon only, no accessible name in `theme-switcher-dropdown.tsx` | Adds `<span class="sr-only">Toggle theme</span>` | Taken from SB-UIP-THEMETOGGLE:56; SB-DOC-A11Y requires a name for non-image icons |
 | DropdownMenu | Radix positioning (Floating UI) and `tw-animate-css` enter/exit | Fixed below-right placement (`align="end"`, `sideOffset` 4); no animation | No build step and no vendored animation source. SB-UI-DROPDOWN:81, SB-DS-THEMESWITCHER:54 |
 | Hero title | PageHeaderTitle uses `heading-title` (text-2xl) | Typography h1 classes (text-4xl, lg:text-5xl) via `className` | A personal page's name is the page's main heading. SB-DS-TYPO-EX `typography-h1.tsx` |
+| Footer | Security band ("We protect your data", SOC2/HIPAA/ISO) above the body (:88-110) | Left out; the gradient rule under it (:111) is kept as the footer's top edge | The band is Supabase's own compliance claims |
+| Footer | Newsletter form (:168-204) | One line of copy in its place, styled as the form's lead (:178) | There is no newsletter to sign up for |
+| Footer | Body inside SectionContainer (`max-w-7xl`, `px-6 lg:px-12 xl:px-24`) | Padding from SectionContainer, width from PageContainer | Lines the footer up with the header and the sections. SB-UIP-PAGECONTAINER |
+| Footer | Column headings are `<h6>` | `<h3>` with the same classes, under the upstream `sr-only` `<h2>Footer</h2>` | Keeps heading levels in order. EXT-WCAG-HEADINGS |
+| Footer | Link classes on an inner `<div>` inside each `<a>` | Same classes on the `<a>` | Same result; one element fewer. The ring sits on the focusable element per SB-DOC-A11Y |
+| Footer | ThemeToggle at the right end of the bar (:254-256) | Theme stays in the header; the bar's right end carries the design-system credit | One theme control per page, in the header where the design-system site places it. SB-DS-TOPNAV:37 |
+| Footer | Bar is one row at every width | Stacks and centres below `md`, one row from `md` | The two ends do not fit side by side at 375px; stacked as the design-system site's footer row is. SB-DS-FOOTER:6 |
+| Footer | Email is not among the channel icons | Adds Supabase's solid envelope, its `fill="white"` changed to `currentColor` | A hardcoded fill cannot follow the link colour or the theme; SB-DOC-ICONS asks for `currentColor` and no hardcoded colours |
+| Footer | Bar's left end is `<small>© Supabase Inc</small>` alone (:253) | A GitHub mark linking to this site's source opens the line, `flex items-center gap-2` (SB-DS-TOPNAV:35) | Owner's request, 2026-09-26. Icon link styles from :122 and :125 |

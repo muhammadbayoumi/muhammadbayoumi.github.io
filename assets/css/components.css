@@ -606,43 +606,148 @@
   }
 }
 
-/* ═══════════════ SiteFooter ═══════════════
-   [SB-DS-FOOTER apps/design-system/components/site-footer.tsx:5-13]
-   "py-6"; row "flex flex-col items-center justify-between gap-4 md:flex-row";
-   p "text-balance text-center text-sm leading-loose text-foreground-muted md:text-left";
-   a "font-medium underline underline-offset-4 hover:text-foreground-lighter" */
-.sb-footer {
-  padding-block: calc(var(--spacing) * 6);
+/* ═══════════════ Footer (supabase.com) ═══════════════
+   [SB-WWW-FOOTER apps/www/components/Footer/index.tsx]. Values checked
+   against the live page [SB-WWW-LIVE]. The security band above the footer
+   body (:88-110) and the newsletter form (:168-204) are left out — see
+   DESIGN.md → Deviations. */
+.sb-www-footer {                                /* :79 "bg-alternative" */
+  background-color: var(--background-alternative-default);
 }
-.sb-footer-row {
+.sb-www-footer-rule {                           /* :111 "w-full h-px bg-linear-to-r from-transparent via-border to-transparent" */
+  width: 100%;
+  height: 1px;
+  background-image: linear-gradient(to right in oklab, transparent, var(--border), transparent);
+}
+/* SectionContainer "relative py-16 sm:py-18 md:py-24" [SB-WWW-SECTION
+   apps/www/components/Layouts/SectionContainer.tsx:17]. The call site's "py-8"
+   (:113) loses to it: measured 64 / 72 / 96px at 375 / 700 / 1366 [SB-WWW-LIVE].
+   `sm:` = 40rem [TW theme.css:327]. */
+.sb-www-footer-body {
+  position: relative;
+  padding-block: calc(var(--spacing) * 16);
+}
+@media (min-width: 40rem) {
+  .sb-www-footer-body { padding-block: calc(var(--spacing) * 18); }
+}
+@media (min-width: 48rem) {
+  .sb-www-footer-body { padding-block: calc(var(--spacing) * 24); }
+}
+.sb-www-footer-brand {                          /* :115 "xl:col-span-2 flex flex-col gap-8" */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--spacing) * 8);
+}
+/* Wordmark: the footer logo is h-[30px] (:117) where the header's is h-6, 24px
+   [SB-WWW-NAV apps/www/components/Nav/RightClickBrandLogo.tsx:96] — 1.25×.
+   The header title here is text-xl / lg:text-2xl (18 / 22px), so 1.25× lands
+   on text-2xl / lg:text-3xl (22 / 28px). */
+.sb-www-footer-wordmark {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-2xl);
+  line-height: var(--text-2xl--line-height);
+}
+@media (min-width: 64rem) {
+  .sb-www-footer-wordmark {
+    font-size: var(--text-3xl);
+    line-height: var(--text-3xl--line-height);
+  }
+}
+.sb-www-footer-social {                         /* :119 "flex space-x-5" */
+  display: flex;
+}
+:where(.sb-www-footer-social > :not(:last-child)) {
+  margin-inline-end: calc(var(--spacing) * 5);
+}
+.sb-www-footer-icon {                           /* :122 "text-foreground-lighter hover:text-foreground transition" */
+  display: inline-flex;
+  color: var(--foreground-lighter);
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke,
+    --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale,
+    rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
+  transition-duration: var(--default-transition-duration);
+  transition-timing-function: var(--default-transition-timing-function);
+}
+.sb-www-footer-icon:hover {
+  color: var(--foreground);
+}
+.sb-www-footer-icon svg {                       /* :125 size={22}; IconBase viewBox 0 0 16 16 [SB-UI-ICONBASE] */
+  width: 22px;
+  height: 22px;
+}
+.sb-www-footer-lead {                           /* :178 "text-foreground-lighter text-sm" */
+  color: var(--foreground-lighter);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+}
+.sb-www-footer-nav {                            /* :206 "mt-12 grid grid-cols-1 gap-8 xl:col-span-5 xl:mt-0" */
+  margin-top: calc(var(--spacing) * 12);
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: calc(var(--spacing) * 8);
+}
+.sb-www-footer-cols {                           /* :207 "grid grid-cols-2 gap-x-4 gap-y-12 md:grid-cols-3 xl:grid-cols-6" */
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: calc(var(--spacing) * 4);
+  row-gap: calc(var(--spacing) * 12);
+}
+@media (min-width: 48rem) {
+  .sb-www-footer-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.sb-www-footer-heading {                        /* :211 h6 "text-foreground overwrite text-base" */
+  color: var(--foreground);
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+}
+.sb-www-footer-links {                          /* :212 "mt-4 space-y-2" */
+  margin-top: calc(var(--spacing) * 4);
+}
+:where(.sb-www-footer-links > :not(:last-child)) {
+  margin-block-end: calc(var(--spacing) * 2);
+}
+.sb-www-footer-link {                           /* :216-218 "text-sm transition-colors text-foreground-lighter hover:text-foreground" */
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  color: var(--foreground-lighter);
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke,
+    --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+  transition-duration: var(--default-transition-duration);
+  transition-timing-function: var(--default-transition-timing-function);
+}
+.sb-www-footer-link:hover {
+  color: var(--foreground);
+}
+/* Bar: "border-default mt-32 flex justify-between border-t pt-8" (:252).
+   On narrow screens its two ends stack the way the design-system site's
+   footer row does: "flex flex-col items-center justify-between gap-4 md:flex-row"
+   [SB-DS-FOOTER apps/design-system/components/site-footer.tsx:6].
+   Text: <small> → text-xs [SB-CFG-TYPO:75-77], in the lighter foreground [SB-WWW-LIVE]. */
+.sb-www-footer-bar {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   gap: calc(var(--spacing) * 4);
-}
-.sb-footer-text {
-  text-wrap: balance;
-  text-align: center;
-  font-size: var(--text-sm);
-  line-height: var(--leading-loose);
-  color: var(--foreground-muted);
-}
-.sb-footer-text a {
-  font-weight: var(--font-weight-medium);
-  text-decoration-line: underline;
-  text-underline-offset: 4px;
-}
-.sb-footer-text a:hover {
+  margin-top: calc(var(--spacing) * 32);
+  padding-top: calc(var(--spacing) * 8);
+  border-top: 1px solid var(--border);
   color: var(--foreground-lighter);
 }
 @media (min-width: 48rem) {
-  .sb-footer-row {
-    flex-direction: row;
+  .sb-www-footer-bar { flex-direction: row; }
+}
+@media (min-width: 80rem) {                     /* `xl:` = 80rem [TW theme.css:330] */
+  .sb-www-footer-grid {                         /* :114 "xl:grid xl:grid-cols-7 xl:gap-4" */
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: calc(var(--spacing) * 4);
   }
-  .sb-footer-text {
-    text-align: left;
-  }
+  .sb-www-footer-brand { grid-column: span 2 / span 2; }
+  .sb-www-footer-nav { grid-column: span 5 / span 5; margin-top: 0; }
+  .sb-www-footer-cols { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 }
 
 /* ═══════════════ Typography ═══════════════
