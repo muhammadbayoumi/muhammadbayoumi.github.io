@@ -3,8 +3,8 @@
   Muhammad Bayoumi — personal site, built on the Supabase Design System.
   Every block names its source as [ID path:line]; the IDs are defined in
   DESIGN.md → "Source registry". Supabase paths are at commit e3febf3.
-  Content: the owner's LinkedIn profile as read on 2026-09-26. cv.pdf is built
-  from this page by tools/build-cv-pdf.py — rebuild it after every edit.
+  Content: the owner's LinkedIn profile as read on 2026-09-26. The page prints
+  as the CV itself (Print, or the browser's Save as PDF).
 -->
 <html lang="en" data-theme="dark" style="color-scheme: dark">
 <head>
@@ -78,6 +78,8 @@
     <symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></symbol>
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></symbol>
     <symbol id="i-network" viewBox="0 0 24 24"><rect x="16" y="16" width="6" height="6" rx="1" /><rect x="2" y="16" width="6" height="6" rx="1" /><rect x="9" y="2" width="6" height="6" rx="1" /><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" /><path d="M12 12V8" /></symbol>
+    <symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" /><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" /><rect x="6" y="14" width="12" height="8" rx="1" /></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol>
     <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" /></symbol>
     <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></symbol>
     <!-- Solid marks from Supabase: GitHub [SB-UI-ICON-GITHUB] and LinkedIn [SB-UI-ICON-LINKEDIN]
@@ -134,124 +136,117 @@
       </div>
     </div>
 
-    <!-- Section tabs: NavMenu [SB-UI-NAVMENU packages/ui/src/components/NavMenu/index.tsx] placed as
-         PageHeaderNavigationTabs does [SB-UIP-PAGEHEADER packages/ui-patterns/src/PageHeader/index.tsx:249-252].
-         Nav labels in title case [SB-DOC-COPY copywriting.mdx "Use title case for … global navigation"]. -->
-    <div class="sb-page site-tabs">
-      <nav class="sb-navmenu" aria-label="CV sections">
-        <ul class="sb-navmenu-list no-scrollbar">
-          <li class="sb-navmenu-item" data-state="inactive"><a class="sb-focus-ring" href="#summary">Summary</a></li>
-          <li class="sb-navmenu-item" data-state="inactive"><a class="sb-focus-ring" href="#experience">Experience</a></li>
-          <li class="sb-navmenu-item" data-state="inactive"><a class="sb-focus-ring" href="#projects">Projects</a></li>
-          <li class="sb-navmenu-item" data-state="inactive"><a class="sb-focus-ring" href="#education">Education</a></li>
-          <li class="sb-navmenu-item" data-state="inactive"><a class="sb-focus-ring" href="#certifications">Certifications</a></li>
-          <li class="sb-navmenu-item" data-state="inactive"><a class="sb-focus-ring" href="#skills">Skills</a></li>
-          <li class="sb-navmenu-item" data-state="inactive"><a class="sb-focus-ring" href="#languages">Languages</a></li>
-        </ul>
-      </nav>
-    </div>
   </header>
 
-  <!-- Landmark target: id + tabindex=-1 [SB-DOC-SKIP fragments/skip-to-content.mdx "Target landmark"] -->
-  <main id="main" tabindex="-1">
-
-    <!-- PageHeader [SB-UIP-PAGEHEADER] as in the Detail pattern [SB-DS-EX-DETAIL page-layout-detail.tsx:47-56];
-         title takes Typography h1 [SB-DS-TYPO-EX typography-h1.tsx] -->
-    <div class="sb-page-header" id="top">
-      <div class="sb-page">
-        <div class="sb-page-header-meta">
-          <div class="sb-page-header-summary">
-            <h1 class="sb-h1">Muhammad Bayoumi</h1>
-            <p class="sb-page-header-description">Technical Office Team Leader at Saudi Pan Kingdom Company (SAPAC)</p>
-            <!-- Contact row, on screen and on paper: "flex flex-wrap gap-3" [SB-DS-EX keyboard-shortcut-demo.tsx:12],
-                 links as text-link [SB-CFG-TYPO typography.css:40-42] -->
-            <p class="site-contact">
-              <span>Riyadh, Saudi Arabia</span>
-              <a class="sb-text-link" href="mailto:muhammad.bayoumi.ali@gmail.com">muhammad.bayoumi.ali@gmail.com</a>
-              <a class="sb-text-link" href="https://www.linkedin.com/in/muhammad-bayoumi-ali/">linkedin.com/in/muhammad-bayoumi-ali</a>
-              <a class="sb-text-link" href="https://muhammadbayoumi.github.io/">muhammadbayoumi.github.io</a>
-            </p>
+  <!-- Document layout: sidebar + content [SB-DS-APP-LAYOUT apps/design-system/app/(app)/layout.tsx:19-29] -->
+  <div class="sb-page">
+    <div class="doc-shell">
+      <!-- Sidebar: SideNavigation groups and items [SB-DS-SIDENAV] [SB-DS-SIDENAV-ITEM]; kept outside <main>
+           so skip and Tab do not land in it (layout.tsx:26) -->
+      <aside class="doc-aside" aria-label="CV navigation">
+        <nav class="sb-sidenav" data-toc>
+          <div class="sb-sidenav-group">
+            <div class="sb-sidenav-title">Pages</div>
+            <a class="sb-sidenav-item sb-focus-ring" href="./">Home</a>
+            <a class="sb-sidenav-item sb-focus-ring" href="cv.html" data-state="active" aria-current="page">CV</a>
           </div>
-          <div class="sb-page-header-aside site-wrap site-print-hide">
-            <!-- Verb-first labels [SB-DOC-COPY "Use verbs, not nouns"]; icons paired with text [SB-DOC-ICONS "Paired"] -->
-            <a class="sb-btn sb-btn--primary sb-btn--small sb-focus-ring" href="cv.pdf" download="Muhammad-Bayoumi-CV.pdf">
-              <span class="sb-btn-icon" aria-hidden="true"><svg class="sb-icon"><use href="#i-download"/></svg></span><span class="sb-btn-label">Download PDF</span>
-            </a>
-            <a class="sb-btn sb-btn--default sb-btn--small sb-focus-ring" href="mailto:muhammad.bayoumi.ali@gmail.com">
-              <span class="sb-btn-icon" aria-hidden="true"><svg class="sb-icon"><use href="#i-mail"/></svg></span><span class="sb-btn-label">Send email</span>
-            </a>
+          <div class="sb-sidenav-group">
+            <div class="sb-sidenav-title">On this page</div>
+            <a class="sb-sidenav-item sb-focus-ring" href="#summary">Summary</a>
+            <a class="sb-sidenav-item sb-focus-ring" href="#experience">Experience</a>
+            <a class="sb-sidenav-item sb-focus-ring" href="#projects">Projects</a>
+            <a class="sb-sidenav-item sb-focus-ring" href="#education">Education</a>
+            <a class="sb-sidenav-item sb-focus-ring" href="#certifications">Certifications</a>
+            <a class="sb-sidenav-item sb-focus-ring" href="#skills">Skills</a>
+            <a class="sb-sidenav-item sb-focus-ring" href="#languages">Languages</a>
           </div>
-        </div>
-      </div>
-    </div>
+          <div class="sb-sidenav-group">
+            <div class="sb-sidenav-title">Actions</div>
+            <!-- Verb label [SB-DOC-COPY "Use verbs, not nouns"], icon paired with text [SB-DOC-ICONS "Paired"] -->
+            <button class="sb-sidenav-item sb-focus-ring" type="button" data-print>
+              <svg class="sb-icon" aria-hidden="true"><use href="#i-printer"/></svg>Print
+            </button>
+          </div>
+        </nav>
+      </aside>
 
-    <div class="sb-page">
-      <!-- Each section: PageSection orientation="horizontal" [SB-UIP-PAGESECTION], as in [SB-DS-EX-DETAIL:59-91].
-           Headings in sentence case, descriptions as fragments without a period [SB-DOC-COPY "Navigation and headings"]. -->
+      <!-- Content-only landmark: id + tabindex=-1 [SB-DOC-SKIP fragments/skip-to-content.mdx "Target landmark"] -->
+      <main id="main" tabindex="-1">
+        <!-- Doc page: "relative px-6 py-6 lg:py-8" / "mx-auto w-full min-w-0 max-w-4xl"
+             [SB-DS-DOCS-PAGE apps/design-system/app/(app)/docs/[[...slug]]/page.tsx:91-131] -->
+        <div class="doc-page">
+          <div class="doc-body">
+            <nav class="sb-breadcrumb" aria-label="Breadcrumb">
+              <span class="sb-breadcrumb-segment"><a href="./">Home</a></span>
+              <svg class="sb-icon" aria-hidden="true"><use href="#i-chevron-right"/></svg>
+              <span class="sb-breadcrumb-current" aria-current="page">CV</span>
+            </nav>
 
-      <!-- ══ Summary ══ -->
-      <section class="sb-section sb-section--horizontal" id="summary" aria-labelledby="summary-title">
-        <div class="sb-section-summary">
-          <h2 id="summary-title">Summary</h2>
-          <div class="sb-section-description">Civil engineer bridging construction and data</div>
-        </div>
-        <div>
-          <div class="sb-card">
-            <div class="sb-card-content site-kv">
-              <p class="sb-p site-prose">
+            <p class="doc-eyebrow">Curriculum vitae</p>
+            <div class="doc-header" id="top">
+              <h1 class="doc-title">Muhammad Bayoumi</h1>
+              <p class="doc-lead">Technical Office Team Leader at Saudi Pan Kingdom Company (SAPAC)</p>
+              <p class="site-contact">
+                <span>Riyadh, Saudi Arabia</span>
+                <a class="sb-text-link" href="mailto:muhammad.bayoumi.ali@gmail.com">muhammad.bayoumi.ali@gmail.com</a>
+                <a class="sb-text-link" href="https://www.linkedin.com/in/muhammad-bayoumi-ali/">linkedin.com/in/muhammad-bayoumi-ali</a>
+                <a class="sb-text-link" href="https://muhammadbayoumi.github.io/">muhammadbayoumi.github.io</a>
+              </p>
+              <p class="doc-updated">Last updated: 26 September 2026</p>
+            </div>
+
+            <!-- Phones: the sidebar as an Accordion [SB-UI-ACCORDION] on details/summary [EXT-HTML-DETAILS] -->
+            <details class="sb-accordion-item doc-toc-mobile">
+              <summary class="sb-accordion-trigger">On this page<svg class="sb-icon" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
+              <nav class="sb-sidenav" data-toc aria-label="On this page">
+                <div class="sb-sidenav-group">
+                  <a class="sb-sidenav-item sb-focus-ring" href="#summary">Summary</a>
+                  <a class="sb-sidenav-item sb-focus-ring" href="#experience">Experience</a>
+                  <a class="sb-sidenav-item sb-focus-ring" href="#projects">Projects</a>
+                  <a class="sb-sidenav-item sb-focus-ring" href="#education">Education</a>
+                  <a class="sb-sidenav-item sb-focus-ring" href="#certifications">Certifications</a>
+                  <a class="sb-sidenav-item sb-focus-ring" href="#skills">Skills</a>
+                  <a class="sb-sidenav-item sb-focus-ring" href="#languages">Languages</a>
+                </div>
+                <div class="sb-sidenav-group">
+                  <button class="sb-sidenav-item sb-focus-ring" type="button" data-print>
+                    <svg class="sb-icon" aria-hidden="true"><use href="#i-printer"/></svg>Print
+                  </button>
+                </div>
+              </nav>
+            </details>
+
+            <hr class="sb-separator doc-separator"/>
+
+            <!-- Document text in the design-system docs' element styles [SB-DS-MDX] -->
+            <div class="doc-content sb-mdx">
+              <h2 id="summary">Summary</h2>
+              <p>
                 Civil engineer with <span data-years-since="2019">7</span>+ years of experience in tendering,
                 technical office work, quantity surveying, and cost estimation on large-scale
                 construction projects across Egypt and Saudi Arabia.
               </p>
-              <p class="sb-p site-prose">
+              <p>
                 The mind behind mbiX — an Excel VSTO add-in designed to help teams pull and update
                 data inside Microsoft Excel seamlessly — eliminating the friction of manual updates.
               </p>
-              <p class="sb-p site-prose">
+              <p>
                 A self-motivated, ethics-driven engineer committed to continuous learning and to
                 delivering real value to colleagues in ways that strengthen team spirit and collaboration.
                 My ambition is to be part of leading positive change in the world.
               </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- ══ Experience ══ -->
-      <section class="sb-section sb-section--horizontal" id="experience" aria-labelledby="experience-title">
-        <div class="sb-section-summary">
-          <h2 id="experience-title">Experience</h2>
-          <div class="sb-section-description">Technical office, tendering, and site roles since 2019</div>
-        </div>
-        <div class="site-stack">
-          <!-- One card per employer: CardHeader with CardTitle and CardDescription [SB-UI-CARD card.tsx:23,32,41];
-               one CardContent per role holding the Detail key–value stack [SB-DS-EX-DETAIL:70-85] -->
-          <div class="sb-card">
-            <div class="sb-card-header">
-              <h3 class="sb-card-title">Saudi Pan Kingdom Company (SAPAC)</h3>
-              <p class="sb-card-description">Full-time · Riyadh, Saudi Arabia</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Sep 2026 – Present</p>
-              <p class="site-kv-value site-kv-value--primary">Technical Office Team Leader</p>
-              <p class="site-kv-note">On-site</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Feb 2025 – Aug 2026</p>
-              <p class="site-kv-value site-kv-value--primary">Senior Technical Office Engineer</p>
-            </div>
-          </div>
+              <h2 id="experience">Experience</h2>
 
-          <div class="sb-card">
-            <div class="sb-card-header">
-              <h3 class="sb-card-title">Samco-National Construction Company</h3>
-              <p class="sb-card-description">Cairo, Egypt</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Jan 2024 – Jan 2025</p>
-              <p class="site-kv-value site-kv-value--primary">Senior Tendering, QS and Cost Estimation Engineer</p>
-              <p class="site-kv-note">Full-time</p>
-              <ul class="site-list">
+              <h3>Technical Office Team Leader</h3>
+              <p class="doc-meta">Saudi Pan Kingdom Company (SAPAC) · Sep 2026 – Present · Riyadh, Saudi Arabia · Full-time, on-site</p>
+
+              <h3>Senior Technical Office Engineer</h3>
+              <p class="doc-meta">Saudi Pan Kingdom Company (SAPAC) · Feb 2025 – Aug 2026 · Riyadh, Saudi Arabia · Full-time</p>
+
+              <h3>Senior Tendering, QS and Cost Estimation Engineer</h3>
+              <p class="doc-meta">Samco-National Construction Company · Jan 2024 – Jan 2025 · Cairo, Egypt · Full-time</p>
+              <ul>
                 <li>Study the tender document</li>
                 <li>Prepare the letter of bid or no bid</li>
                 <li>Review bid bond requests for tenders</li>
@@ -272,12 +267,10 @@
                 <li>Write and prepare offers in compliance with the client’s formal requirements</li>
                 <li>Build profit and loss scenarios (worst and best case)</li>
               </ul>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Jun 2021 – Dec 2023</p>
-              <p class="site-kv-value site-kv-value--primary">Technical Office Engineer</p>
-              <p class="site-kv-note">Full-time</p>
-              <ul class="site-list">
+
+              <h3>Technical Office Engineer</h3>
+              <p class="doc-meta">Samco-National Construction Company · Jun 2021 – Dec 2023 · Cairo, Egypt · Full-time</p>
+              <ul>
                 <li>Study the project contract documents (specifications, drawings, BOQ, method of measurement, and contracts) and prepare requests for information (RFI) for anything missing, unclear, or conflicting</li>
                 <li>Prepare shop drawings for overpass and underpass structures and submit them for the client consultant’s approval before execution</li>
                 <li>Prepare quantity surveying for projects and issue client invoices, including their supporting documents</li>
@@ -288,366 +281,157 @@
                 <li>Prepare cost breakdowns and the documents needed for price discussion committees</li>
                 <li>SAP ERP user</li>
               </ul>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Feb 2021 – Jun 2021</p>
-              <p class="site-kv-value site-kv-value--primary">Site Engineer</p>
-              <p class="site-kv-note">Internship</p>
-              <ul class="site-list">
+
+              <h3>Site Engineer</h3>
+              <p class="doc-meta">Samco-National Construction Company · Feb 2021 – Jun 2021 · Cairo, Egypt · Internship</p>
+              <ul>
                 <li>Supervise all structural concrete construction activities of the Alferdos axis bridge</li>
                 <li>Ensure execution according to approved drawings, design, and specifications</li>
               </ul>
-            </div>
-          </div>
 
-          <div class="sb-card">
-            <div class="sb-card-header">
-              <h3 class="sb-card-title">MBi</h3>
-              <p class="sb-card-description">Self-employed</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Nov 2020 – Jan 2021</p>
-              <p class="site-kv-value site-kv-value--primary">Contractor</p>
-              <p class="site-kv-note">Cairo and Qalyubia · Hybrid</p>
-              <ul class="site-list">
+              <h3>Contractor</h3>
+              <p class="doc-meta">MBi, self-employed · Nov 2020 – Jan 2021 · Cairo and Qalyubia · Hybrid</p>
+              <ul>
                 <li>Prepare executive drawings, tender, and abstracts, and build an RC foundation carrying water pumps for HelioPower at Mostorod Water Station</li>
                 <li>Build a footpath for ELSERAFY ENGINEERING LLC in Qalyub Central</li>
               </ul>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">May 2020 – Oct 2020</p>
-              <p class="site-kv-value site-kv-value--primary">Technical Office Engineer</p>
-              <p class="site-kv-note">Banha, Al Qalyubiyah, Egypt</p>
-              <ul class="site-list">
+
+              <h3>Technical Office Engineer</h3>
+              <p class="doc-meta">MBi, self-employed · May 2020 – Oct 2020 · Banha, Al Qalyubiyah, Egypt</p>
+              <ul>
                 <li>Negotiate with clients on preparing construction reconciliation files — more than 100 clients served</li>
                 <li>Survey facilities and draw as-built architectural and construction drawings</li>
                 <li>Carry out structural design to ensure structural safety, and prepare the calculation notes</li>
                 <li>Obtain approval of drawings and reports from consulting engineers, and follow up the safety certificate from the Engineers Association</li>
               </ul>
-            </div>
-          </div>
 
-          <div class="sb-card">
-            <div class="sb-card-header">
-              <h3 class="sb-card-title">Egyptian Armed Forces Engineering Authority</h3>
-              <p class="sb-card-description">Full-time · Port Said, Egypt</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Mar 2019 – Feb 2020</p>
-              <p class="site-kv-value site-kv-value--primary">Supervision &amp; Technical Office Engineer</p>
-              <p class="site-kv-note">East Port Said Naval Base</p>
-              <ul class="site-list">
+              <h3>Supervision &amp; Technical Office Engineer</h3>
+              <p class="doc-meta">Egyptian Armed Forces Engineering Authority · Mar 2019 – Feb 2020 · Port Said, Egypt · Full-time · East Port Said Naval Base</p>
+              <ul>
                 <li>Supervise infrastructure, construction, landscape, and finishing works to approved drawings, design, and specifications</li>
                 <li>Supervise soil improvement by the CMC (Controlled Modulus Column) method</li>
                 <li>Follow up performance rates and submit daily reports</li>
               </ul>
-            </div>
-          </div>
 
-          <div class="sb-card">
-            <div class="sb-card-header">
-              <h3 class="sb-card-title">Training</h3>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Mar 2018 – May 2018</p>
-              <p class="site-kv-value site-kv-value--primary">Trainee · Bauer Foundation Corp.</p>
-              <p class="site-kv-note">500500 Hospital, 57357 Hospital, and the Extensions of the Bar Association of Cairo</p>
-              <ul class="site-list">
+              <h3>Trainee</h3>
+              <p class="doc-meta">Bauer Foundation Corp. · Mar 2018 – May 2018 · 500500 Hospital, 57357 Hospital, and the Extensions of the Bar Association of Cairo</p>
+              <ul>
                 <li>Follow up construction of the diaphragm wall and its soil-nail tiebacks at 500500 Hospital</li>
                 <li>Follow up construction of the diaphragm wall, its temporary anchors, and dewatering at 57357 Hospital</li>
                 <li>Follow up jet-grouting soil improvement and dewatering at the Extensions of the Bar Association of Cairo</li>
               </ul>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Jun 2015</p>
-              <p class="site-kv-value site-kv-value--primary">Trainee · The Arab Contractors</p>
-              <ul class="site-list">
+
+              <h3>Trainee</h3>
+              <p class="doc-meta">The Arab Contractors · Jun 2015</p>
+              <ul>
                 <li>Practical workshops in construction: formwork, reinforcement, masonry, plaster, electrical, plumbing, woodwork, metalwork, and painting</li>
               </ul>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- ══ Projects ══ -->
-      <section class="sb-section sb-section--horizontal" id="projects" aria-labelledby="projects-title">
-        <div class="sb-section-summary">
-          <h2 id="projects-title">Projects</h2>
-          <div class="sb-section-description">Roads, bridges, tunnels, and marine works, and the tools built along the way</div>
-        </div>
-        <div class="site-stack">
-          <div class="sb-card">
-            <div class="sb-card-header">
-              <h3 class="sb-card-title">Saudi Pan Kingdom Company (SAPAC)</h3>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Feb 2025 – Present</p>
-              <p class="site-kv-value site-kv-value--primary">Second Southern Ring Road (SSRR)</p>
-              <p class="site-kv-note">Contract period 5 Aug 2024 – 4 Aug 2028</p>
-            </div>
-          </div>
+              <h2 id="projects">Projects</h2>
+              <div class="sb-mdx-table">
+                <table>
+                  <thead>
+                    <tr><th>Project</th><th>Company</th><th>Period</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Second Southern Ring Road (SSRR) — contract period 5 Aug 2024 – 4 Aug 2028</td><td>SAPAC</td><td>Feb 2025 – Present</td></tr>
+                    <tr><td>Bridge at the intersection of the 3rd of July Corridor and Hasaballah Al-Kafrawy Corridor</td><td>Samco</td><td>Jul 2023 – Apr 2024</td></tr>
+                    <tr><td>Tunnel at the intersection of the Sphinx Corridor and the Dabaa Corridor</td><td>Samco</td><td>May 2023 – Oct 2023</td></tr>
+                    <tr><td>Tunnel No. 1 within the coastal road</td><td>Samco</td><td>Dec 2022 – May 2023</td></tr>
+                    <tr><td>Egyptian Rural Development Project (Decent Life), Phase One — Fayoum, Atsa Center: 30 irrigation and drainage bridges replaced and renewed in four regions</td><td>Samco</td><td>May 2022 – Sep 2022</td></tr>
+                    <tr><td>Strategic Command Bridges — Ain Sokhna Road Intersection Bridge No. 4</td><td>Samco</td><td>May 2022 – Aug 2022</td></tr>
+                    <tr><td>Sidi Abd El-Rahman Bridge, International Coastal Road — intersection with Wadi El-Natron road</td><td>Samco</td><td>Jan 2022 – May 2022</td></tr>
+                    <tr><td>Recreational area in El Alamein City — second phase</td><td>Samco</td><td>Jun 2021 – Dec 2021</td></tr>
+                    <tr><td>Jehan Sadat Corridor Development Project — First Phase, Third Sector</td><td>Samco</td><td>Feb 2021 – Jun 2021</td></tr>
+                    <tr><td>Eastern Port Said Naval Base — dredging, ports, and marine works</td><td>Armed Forces Engineering Authority</td><td>Mar 2019 – Feb 2020</td></tr>
+                  </tbody>
+                </table>
+              </div>
 
-          <div class="sb-card site-print-grid">
-            <div class="sb-card-header">
-              <h3 class="sb-card-title">Samco-National Construction Company</h3>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Jul 2023 – Apr 2024</p>
-              <p class="site-kv-value site-kv-value--primary">Bridge at the intersection of the 3rd of July Corridor and Hasaballah Al-Kafrawy Corridor</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">May 2023 – Oct 2023</p>
-              <p class="site-kv-value site-kv-value--primary">Tunnel at the intersection of the Sphinx Corridor and the Dabaa Corridor</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Dec 2022 – May 2023</p>
-              <p class="site-kv-value site-kv-value--primary">Tunnel No. 1 within the coastal road</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">May 2022 – Sep 2022</p>
-              <p class="site-kv-value site-kv-value--primary">Egyptian Rural Development Project (Decent Life), Phase One — Fayoum Governorate, Atsa Center</p>
-              <p class="site-kv-note">Replacing and renewing irrigation and drainage bridges — 30 bridges in four regions</p>
-              <ul class="site-list">
-                <li>First region: Qalhana – Shadmouh, 4 bridges (May – Aug 2022)</li>
-                <li>Second region: Tawil – Minyat Al-Hait – Abu Jendir – Abu Sir, 19 bridges (Jun – Sep 2022)</li>
-                <li>Third region: Qasr al-Basil – Tatoun, 4 bridges (Jun – Sep 2022)</li>
-                <li>Fourth region: Al-Gharq – Al-Hajar, 3 bridges (May – Aug 2022)</li>
+              <h3>Tools</h3>
+              <ul>
+                <li><a href="https://muhammadbayoumi.github.io/mbiXsite/install.html">mbiX Xadd-in for Excel</a> — an Excel VSTO add-in that syncs Google Sheets data into a local SQLite database through a full ETL pipeline</li>
+                <li><a href="https://github.com/muhammadbayoumi/ScrapeX">ScrapeX for Chrome</a> — a Chrome extension and local engine that collects web data into a SQLite warehouse feeding the mbiX add-in</li>
+                <li><a href="https://github.com/muhammadbayoumi/Detecting-redundant-relationships">Redundant relationship detection</a> — an algorithm that flags redundant logic links in Primavera P6 schedules</li>
+                <li>Spiral Reinforcement Detailing Sheet — Shape Code 77: helical reinforcement geometry and spiral bar counts (BS 8666:2005), with the steps to produce shop drawings in AutoCAD Structural Detailing</li>
               </ul>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">May 2022 – Aug 2022</p>
-              <p class="site-kv-value site-kv-value--primary">Strategic Command Bridges — Ain Sokhna Road Intersection Bridge No. 4</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Jan 2022 – May 2022</p>
-              <p class="site-kv-value site-kv-value--primary">Sidi Abd El-Rahman Bridge, International Coastal Road</p>
-              <p class="site-kv-note">The intersection of the international coastal road with Wadi El-Natron road</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Jun 2021 – Dec 2021</p>
-              <p class="site-kv-value site-kv-value--primary">Recreational area in El Alamein City — second phase</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Feb 2021 – Jun 2021</p>
-              <p class="site-kv-value site-kv-value--primary">Jehan Sadat Corridor Development Project — First Phase, Third Sector</p>
-            </div>
-          </div>
 
-          <div class="sb-card">
-            <div class="sb-card-header">
-              <h3 class="sb-card-title">Egyptian Armed Forces Engineering Authority</h3>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Mar 2019 – Feb 2020</p>
-              <p class="site-kv-value site-kv-value--primary">Eastern Port Said Naval Base</p>
-              <p class="site-kv-note">Dredging, ports, and marine works · Owner: Egyptian Navy · Consultants: Dar Al-Handasah and ACE Moharram-Bakhoum</p>
-            </div>
-          </div>
+              <h2 id="education">Education</h2>
 
-          <div class="sb-card site-print-grid">
-            <div class="sb-card-header">
-              <h3 class="sb-card-title">Tools</h3>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-value site-kv-value--primary"><a class="sb-text-link" href="https://muhammadbayoumi.github.io/mbiXsite/install.html">mbiX Xadd-in for Excel</a></p>
-              <p class="site-kv-note">An Excel VSTO add-in that syncs Google Sheets data into a local SQLite database through a full ETL pipeline</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-value site-kv-value--primary"><a class="sb-text-link" href="https://github.com/muhammadbayoumi/ScrapeX">ScrapeX for Chrome</a></p>
-              <p class="site-kv-note">A Chrome extension and local engine that collects web data into a SQLite warehouse feeding the mbiX add-in</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-value site-kv-value--primary"><a class="sb-text-link" href="https://github.com/muhammadbayoumi/Detecting-redundant-relationships">Redundant relationship detection</a></p>
-              <p class="site-kv-note">An algorithm that flags redundant logic links in Primavera P6 schedules</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-value site-kv-value--primary">Spiral Reinforcement Detailing Sheet — Shape Code 77</p>
-              <p class="site-kv-note">Computes helical reinforcement geometry and the number of spiral bars for a distribution length (BS 8666:2005), with the steps to produce shop drawings in AutoCAD Structural Detailing</p>
-            </div>
-          </div>
-        </div>
-      </section>
+              <h3>Master's degree, Data Science</h3>
+              <p class="doc-meta">Cairo University · Oct 2024 – Oct 2027 · In progress</p>
 
-      <!-- ══ Education ══ -->
-      <section class="sb-section sb-section--horizontal" id="education" aria-labelledby="education-title">
-        <div class="sb-section-summary">
-          <h2 id="education-title">Education</h2>
-          <div class="sb-section-description">Degrees and volunteering</div>
-        </div>
-        <div class="site-stack">
-          <div class="sb-card">
-            <div class="sb-card-header"><h3 class="sb-card-title">Degrees</h3></div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Oct 2024 – Oct 2027 · in progress</p>
-              <p class="site-kv-value site-kv-value--primary">Master's degree, Data Science</p>
-              <p class="site-kv-note">Cairo University</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">2013 – 2018</p>
-              <p class="site-kv-value site-kv-value--primary">Bachelor's degree, Civil Engineering</p>
-              <p class="site-kv-note">Pyramids Higher Institute for Engineering and Technology (PHI), 6th of October</p>
-              <ul class="site-list">
+              <h3>Bachelor's degree, Civil Engineering</h3>
+              <p class="doc-meta">Pyramids Higher Institute for Engineering and Technology (PHI), 6th of October · 2013 – 2018</p>
+              <ul>
                 <li>Graduation project in geotechnical engineering and foundations (A+)</li>
                 <li>Activities: Enactus PHI multimedia head</li>
               </ul>
-            </div>
-          </div>
-          <div class="sb-card">
-            <div class="sb-card-header"><h3 class="sb-card-title">Volunteering</h3></div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">2016 – 2018</p>
-              <p class="site-kv-value site-kv-value--primary">Enactus PHI Multimedia Head</p>
-              <p class="site-kv-note">Enactus · Economic empowerment</p>
-              <ul class="site-list">
+
+              <h3>Volunteering: Enactus PHI Multimedia Head</h3>
+              <p class="doc-meta">Enactus · 2016 – 2018 · Economic empowerment</p>
+              <ul>
                 <li>Study entrepreneurship and apply it in different projects</li>
                 <li>Volunteer as graphic designer, motion graphics artist, video editor, and marketer</li>
               </ul>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- ══ Certifications ══ -->
-      <section class="sb-section sb-section--horizontal" id="certifications" aria-labelledby="certs-title">
-        <div class="sb-section-summary">
-          <h2 id="certs-title">Certifications</h2>
-          <div class="sb-section-description">Licenses and certificates, newest first</div>
-        </div>
-        <div>
-          <div class="sb-card site-print-grid">
-            <div class="sb-card-content">
-              <p class="site-kv-label">Feb 2025</p>
-              <p class="site-kv-value site-kv-value--primary">Certificate Professional Accreditation</p>
-              <p class="site-kv-note">Saudi Council of Engineers</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Jan 2025</p>
-              <p class="site-kv-value site-kv-value--primary">ITIDA Gigs Program</p>
-              <p class="site-kv-note">Information Technology Industry Development Agency (ITIDA) · Freelancing program</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Oct 2024</p>
-              <p class="site-kv-value site-kv-value--primary">Google Data Analytics Professional Certificate</p>
-              <p class="site-kv-note">Google</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Sep 2024</p>
-              <p class="site-kv-value site-kv-value--primary">SQL</p>
-              <p class="site-kv-note">HackerRank</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Aug 2024</p>
-              <p class="site-kv-value site-kv-value--primary">Microsoft Power BI Data Analyst Professional Certificate</p>
-              <p class="site-kv-note">Microsoft</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Aug 2024</p>
-              <p class="site-kv-value site-kv-value--primary">Tableau Business Intelligence Analyst Specialization</p>
-              <p class="site-kv-note">Tableau</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Jul 2024</p>
-              <p class="site-kv-value site-kv-value--primary">Data Visualization with Tableau Specialization</p>
-              <p class="site-kv-note">University of California, Davis</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Jul 2024</p>
-              <p class="site-kv-value site-kv-value--primary">Data Analysis and Visualization Foundations Specialization</p>
-              <p class="site-kv-note">IBM</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Jul 2024</p>
-              <p class="site-kv-value site-kv-value--primary">Delivering Quality Work with Agility</p>
-              <p class="site-kv-note">IBM</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Jun 2023</p>
-              <p class="site-kv-value site-kv-value--primary">Navisworks Manage</p>
-              <p class="site-kv-note">Autodesk</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Jun 2023</p>
-              <p class="site-kv-value site-kv-value--primary">BIM Coordinator Diploma</p>
-              <p class="site-kv-note">Autodesk</p>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Mar 2022 · expires Mar 2027</p>
-              <p class="site-kv-value site-kv-value--primary">IPMA Level D® — Certified Project Manager Associate</p>
-              <p class="site-kv-note">International Project Management Association (IPMA)</p>
-            </div>
-          </div>
-        </div>
-      </section>
+              <h2 id="certifications">Certifications</h2>
+              <div class="sb-mdx-table">
+                <table>
+                  <thead>
+                    <tr><th>Certificate</th><th>Issuer</th><th>Issued</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Certificate Professional Accreditation</td><td>Saudi Council of Engineers</td><td>Feb 2025</td></tr>
+                    <tr><td>ITIDA Gigs Program (freelancing)</td><td>Information Technology Industry Development Agency (ITIDA)</td><td>Jan 2025</td></tr>
+                    <tr><td>Google Data Analytics Professional Certificate</td><td>Google</td><td>Oct 2024</td></tr>
+                    <tr><td>SQL</td><td>HackerRank</td><td>Sep 2024</td></tr>
+                    <tr><td>Microsoft Power BI Data Analyst Professional Certificate</td><td>Microsoft</td><td>Aug 2024</td></tr>
+                    <tr><td>Tableau Business Intelligence Analyst Specialization</td><td>Tableau</td><td>Aug 2024</td></tr>
+                    <tr><td>Data Visualization with Tableau Specialization</td><td>University of California, Davis</td><td>Jul 2024</td></tr>
+                    <tr><td>Data Analysis and Visualization Foundations Specialization</td><td>IBM</td><td>Jul 2024</td></tr>
+                    <tr><td>Delivering Quality Work with Agility</td><td>IBM</td><td>Jul 2024</td></tr>
+                    <tr><td>Navisworks Manage</td><td>Autodesk</td><td>Jun 2023</td></tr>
+                    <tr><td>BIM Coordinator Diploma</td><td>Autodesk</td><td>Jun 2023</td></tr>
+                    <tr><td>IPMA Level D® — Certified Project Manager Associate (expires Mar 2027)</td><td>International Project Management Association (IPMA)</td><td>Mar 2022</td></tr>
+                  </tbody>
+                </table>
+              </div>
 
-      <!-- ══ Skills ══ -->
-      <section class="sb-section sb-section--horizontal" id="skills" aria-labelledby="skills-title">
-        <div class="sb-section-summary">
-          <h2 id="skills-title">Skills</h2>
-          <div class="sb-section-description">Tendering, engineering, tools, software, and people</div>
-        </div>
-        <div>
-          <!-- Badges [SB-UI-BADGE] in rows [SB-DS-EX badge-state.tsx:5] -->
-          <div class="sb-card">
-            <div class="sb-card-content">
-              <p class="site-kv-label">Tendering and cost</p>
-              <div class="site-badges">
-                <span class="sb-badge">Bill of Quantities (BOQ)</span><span class="sb-badge">Quantity surveying</span><span class="sb-badge">Construction estimating</span><span class="sb-badge">Cost control</span><span class="sb-badge">Bid preparation</span><span class="sb-badge">Bid pricing</span><span class="sb-badge">Pricing strategy</span><span class="sb-badge">Pricing analysis</span><span class="sb-badge">Tender preparation</span><span class="sb-badge">Tender submissions</span><span class="sb-badge">Invitation to tender</span><span class="sb-badge">Project bidding</span><span class="sb-badge">Financial data analysis</span>
+              <h2 id="skills">Skills</h2>
+              <div class="sb-mdx-table">
+                <table>
+                  <thead>
+                    <tr><th>Area</th><th>Skills</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Tendering and cost</td><td>Bill of Quantities (BOQ), quantity surveying, construction estimating, cost control, bid preparation, bid pricing, pricing strategy, pricing analysis, tender preparation, tender submissions, invitation to tender, project bidding, financial data analysis</td></tr>
+                    <tr><td>Engineering</td><td>Technical office, technical specs, computer-aided design (CAD), BIM modelling, construction</td></tr>
+                    <tr><td>Tools and technologies</td><td>AutoCAD, Revit, Navisworks, Oracle Primavera, Microsoft Project, SAP ERP, Microsoft Excel, PowerPoint, Word, Power BI, Tableau, SQL</td></tr>
+                    <tr><td>Software development</td><td>C# / .NET, VSTO, Excel Interop, SQLite, ETL pipelines, Google Sheets API, Python, HTML / CSS / JS</td></tr>
+                    <tr><td>Interpersonal</td><td>Team leadership, supervisory skills, negotiation, communication, teamwork, problem solving, critical thinking, analytical skills, attention to detail, ethical decision making</td></tr>
+                  </tbody>
+                </table>
               </div>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Engineering</p>
-              <div class="site-badges">
-                <span class="sb-badge">Technical office</span><span class="sb-badge">Technical specs</span><span class="sb-badge">Computer-aided design (CAD)</span><span class="sb-badge">BIM modelling</span><span class="sb-badge">Construction</span>
-              </div>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Tools and technologies</p>
-              <div class="site-badges">
-                <span class="sb-badge">AutoCAD</span><span class="sb-badge">Revit</span><span class="sb-badge">Navisworks</span><span class="sb-badge">Oracle Primavera</span><span class="sb-badge">Microsoft Project</span><span class="sb-badge">SAP ERP</span><span class="sb-badge">Microsoft Excel</span><span class="sb-badge">Microsoft PowerPoint</span><span class="sb-badge">Microsoft Word</span><span class="sb-badge">Microsoft Power BI</span><span class="sb-badge">Tableau</span><span class="sb-badge">SQL</span>
-              </div>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Software development</p>
-              <div class="site-badges">
-                <span class="sb-badge">C# / .NET</span><span class="sb-badge">VSTO</span><span class="sb-badge">Excel Interop</span><span class="sb-badge">SQLite</span><span class="sb-badge">ETL pipelines</span><span class="sb-badge">Google Sheets API</span><span class="sb-badge">Python</span><span class="sb-badge">HTML / CSS / JS</span>
-              </div>
-            </div>
-            <div class="sb-card-content">
-              <p class="site-kv-label">Interpersonal</p>
-              <div class="site-badges">
-                <span class="sb-badge">Team leadership</span><span class="sb-badge">Supervisory skills</span><span class="sb-badge">Negotiation</span><span class="sb-badge">Communication</span><span class="sb-badge">Teamwork</span><span class="sb-badge">Problem solving</span><span class="sb-badge">Critical thinking</span><span class="sb-badge">Analytical skills</span><span class="sb-badge">Attention to detail</span><span class="sb-badge">Ethical decision making</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- ══ Languages ══ -->
-      <section class="sb-section sb-section--horizontal" id="languages" aria-labelledby="languages-title">
-        <div class="sb-section-summary">
-          <h2 id="languages-title">Languages</h2>
-          <div class="sb-section-description">Spoken and written</div>
-        </div>
-        <div>
-          <div class="sb-card">
-            <div class="sb-card-content site-kv">
-              <div class="site-kv-stack">
-                <div>
-                  <p class="site-kv-label">Arabic</p>
-                  <p class="site-kv-value">Native or bilingual proficiency</p>
-                </div>
-                <div>
-                  <p class="site-kv-label">English</p>
-                  <p class="site-kv-value">Elementary proficiency</p>
-                </div>
+              <h2 id="languages">Languages</h2>
+              <div class="sb-mdx-table">
+                <table>
+                  <thead>
+                    <tr><th>Language</th><th>Proficiency</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Arabic</td><td>Native or bilingual proficiency</td></tr>
+                    <tr><td>English</td><td>Elementary proficiency</td></tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </main>
     </div>
-  </main>
-
+  </div>
 
   <!-- Footer of supabase.com [SB-WWW-FOOTER apps/www/components/Footer/index.tsx:77-259] -->
   <footer class="sb-www-footer">

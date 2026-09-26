@@ -137,43 +137,167 @@ main:focus {
   gap: calc(var(--spacing) * 2);
 }
 
-/* ═══════════════ CV page ═══════════════ */
+/* ═══════════════ CV page: document layout ═══════════════
+   Sidebar + content, as the design-system app lays out its docs
+   [SB-DS-APP-LAYOUT apps/design-system/app/(app)/layout.tsx:19-29] and as each doc
+   page arranges itself [SB-DS-DOCS-PAGE apps/design-system/app/(app)/docs/[[...slug]]/page.tsx:91-131].
+   The frame takes PageContainer width, as the header does (see Deviations). */
 
-/* Contact row under the CV title: "flex flex-wrap gap-3" [SB-DS-EX keyboard-shortcut-demo.tsx:12]
-   in the description tone, "text-sm text-foreground-light" [SB-UIP-PAGESECTION:110], set apart
-   from the line above by the Detail stack's "pt-2" [SB-DS-EX-DETAIL page-layout-detail.tsx:84]. */
+/* grid "md:grid md:grid-cols-[220px_minmax(0,1fr)] lg:grid-cols-[240px_minmax(0,1fr)]" (layout.tsx:20) */
+@media (min-width: 48rem) {
+  .doc-shell {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    align-items: start;
+  }
+}
+@media (min-width: 64rem) {
+  .doc-shell {
+    grid-template-columns: 240px minmax(0, 1fr);
+  }
+}
+
+/* aside "hidden md:sticky md:block border-r" with a viewport-tall scroll area (layout.tsx:21-24);
+   it sticks under the header as the TOC does, "sticky top-(--header-height)"
+   [SB-UIP-TOC packages/ui-patterns/src/Toc/toc.tsx:27]. */
+.doc-aside {
+  display: none;
+}
+@media (min-width: 48rem) {
+  .doc-aside {
+    display: block;
+    position: sticky;
+    top: var(--header-height);
+    height: calc(100vh - var(--header-height));
+    overflow-y: auto;
+    border-right: 1px solid var(--border);
+  }
+}
+
+/* content "relative px-6 py-6 lg:py-8", then "mx-auto w-full min-w-0 max-w-4xl flex-1"
+   (page.tsx:91-92); max-w-4xl = 56rem [TW theme.css:342]. */
+.doc-page {
+  position: relative;
+  padding: calc(var(--spacing) * 6);
+}
+@media (min-width: 64rem) {
+  .doc-page {
+    padding-block: calc(var(--spacing) * 8);
+  }
+}
+@media (max-width: 47.99rem) {
+  .doc-page {
+    padding-inline: 0;                           /* on phones PageContainer already pads the page (px-6) */
+  }
+}
+.doc-body {
+  margin-inline: auto;
+  width: 100%;
+  min-width: 0;
+  max-width: 56rem;
+}
+
+/* Eyebrow above the title: supabase.com PageHeader "mb-3 font-mono text-sm uppercase
+   tracking-widest text-primary" [SB-WWW-PAGEHEADER apps/www/components/Sections/PageHeader.tsx:19]. */
+.doc-eyebrow {
+  margin-bottom: calc(var(--spacing) * 3);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  color: var(--primary);
+}
+
+/* Title block "space-y-2 mb-5": h1 "scroll-m-20 text-4xl tracking-tight", description
+   "text-lg text-foreground-light" (page.tsx:121-126). */
+.doc-header {
+  margin-bottom: calc(var(--spacing) * 5);
+}
+:where(.doc-header > :not(:last-child)) {
+  margin-block-end: calc(var(--spacing) * 2);
+}
+.doc-title {
+  scroll-margin: calc(var(--spacing) * 20);
+  font-size: var(--text-4xl);
+  line-height: var(--text-4xl--line-height);
+  letter-spacing: var(--tracking-tight);
+}
+.doc-lead {
+  font-size: var(--text-lg);
+  line-height: var(--text-lg--line-height);
+  color: var(--foreground-light);
+}
+
+/* Contact row: "flex flex-wrap gap-3" [SB-DS-EX keyboard-shortcut-demo.tsx:12] in the
+   description tone "text-sm text-foreground-light" [SB-UIP-PAGESECTION:110]. */
 .site-contact {
   display: flex;
   flex-wrap: wrap;
   gap: calc(var(--spacing) * 3);
-  padding-top: calc(var(--spacing) * 2);
   font-size: var(--text-sm);
   line-height: var(--text-sm--line-height);
   color: var(--foreground-light);
 }
 
-/* Bullets inside a role: Typography list "ml-6 list-disc [&>li]:mt-2"
-   [SB-DS-TYPO-EX typography-list.tsx:3]. Its "my-6" gives way to the Detail stack's
-   "pt-2" [SB-DS-EX-DETAIL:84] because the list sits inside a card row — see Deviations.
-   Text in the card's description tone, "text-sm text-foreground-lighter" [SB-UI-CARD card.tsx:41]. */
-.site-list {
-  padding-top: calc(var(--spacing) * 2);
-  margin-left: calc(var(--spacing) * 6);
-  list-style-type: disc;
+/* "Last updated" line: the legal pages' version line "mb-8 text-sm text-foreground-lighter"
+   [SB-WWW-LEGALVERSIONS apps/www/components/Legal/LegalDocVersions.tsx:67], here closing
+   the header block, so without its bottom margin. */
+.doc-updated {
   font-size: var(--text-sm);
   line-height: var(--text-sm--line-height);
   color: var(--foreground-lighter);
 }
-.site-list > li {
-  margin-top: calc(var(--spacing) * 2);
+
+/* Separator under the header "mb-6" (page.tsx:129) and the content "pb-12" (page.tsx:131). */
+.doc-separator {
+  margin-bottom: calc(var(--spacing) * 6);
+}
+.doc-content {
+  padding-bottom: calc(var(--spacing) * 12);
+}
+
+/* Role line under each h3 (company, dates, place): the version-line tone
+   "text-sm text-foreground-lighter" [SB-WWW-LEGALVERSIONS:67], one gap-1 below its
+   heading as PageHeaderSummary spaces a title and its description [SB-UIP-PAGEHEADER:131]. */
+.sb-mdx p.doc-meta {
+  margin-top: calc(var(--spacing) * 1);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  color: var(--foreground-lighter);
+}
+
+/* On phones the sidebar turns into an Accordion above the content (see Deviations);
+   the TOC itself is "max-md:hidden" [SB-UIP-TOC:27]. */
+.doc-toc-mobile {
+  margin-bottom: calc(var(--spacing) * 6);
+}
+.doc-toc-mobile .sb-sidenav {
+  padding-block: 0 calc(var(--spacing) * 4);
+}
+.doc-toc-mobile .sb-sidenav-group {
+  padding-bottom: calc(var(--spacing) * 4);
+}
+/* The accordion's own border-b already rules off the header, so the separator
+   after it is dropped while the accordion shows. */
+@media (max-width: 47.99rem) {
+  .doc-toc-mobile + .doc-separator {
+    display: none;
+  }
+}
+@media (min-width: 48rem) {
+  .doc-toc-mobile {
+    display: none;
+  }
 }
 
 /* ═══════════════ Print ═══════════════
-   Supabase ships no print styles, so this block follows MDN — see DESIGN.md → Deviations.
-   Page box: A4 [EXT-MDN-PAGE], margins 3rem, the PageSection rhythm "pt-12"
+   Supabase ships no print styles, so this block follows MDN (see DESIGN.md, Deviations).
+   Page box A4 [EXT-MDN-PAGE] with 3rem margins, the PageSection rhythm "pt-12"
    [SB-UIP-PAGESECTION:9] (custom properties do not reach the page box, hence the literal).
-   Screen-only chrome is hidden [EXT-MDN-PRINT] and card rows are kept whole [EXT-MDN-BREAK].
-   main.js prints in the light theme [EXT-MDN-BEFOREPRINT]. */
+   Everything but the document is hidden [EXT-MDN-PRINT]; headings stay with what
+   follows them and rows and bullets are not split [EXT-MDN-BREAK]; main.js prints in
+   the light theme [EXT-MDN-BEFOREPRINT]. */
 @page {
   size: A4;
   margin: 3rem;
@@ -182,67 +306,37 @@ main:focus {
   .sb-skip,
   .sb-topnav,
   .sb-www-footer,
-  .site-print-hide {
+  .doc-aside,
+  .doc-toc-mobile,
+  .sb-breadcrumb {
     display: none !important;
   }
   .sb-page {
     max-width: none;
     padding-inline: 0;
   }
-  .sb-page-header {
-    padding-top: 0;
+  .doc-shell {
+    display: block;
   }
-  .sb-card {
-    box-shadow: none;
+  .doc-page {
+    padding: 0;
   }
-  .sb-card-header,
-  .sb-card-content {
-    break-inside: avoid;
+  .doc-body {
+    max-width: none;
   }
-  .sb-section-summary,
-  .sb-card-header {
+  .sb-mdx h2,
+  .sb-mdx h3,
+  .sb-mdx p.doc-meta {
     break-after: avoid;
   }
-
-  /* Paper is denser than a screen. Every value below is a step of the same
-     Supabase scale, reused for print — see Deviations:
-     sections gap-6 (PageSection "gap-6" [SB-UIP-PAGESECTION:9]) instead of pt-12;
-     card rows py-2 (size small "py-2" [SB-UI-CONST constants.ts:55]) instead of py-4;
-     paragraph and bullet spacing mt-2 / mt-1 instead of mt-6 / mt-2. */
-  .sb-section {
-    padding-top: calc(var(--spacing) * 6);
-  }
-  .sb-card-header,
-  .sb-card-content,
-  .site-kv {
-    padding-block: calc(var(--spacing) * 2);
-  }
-  .sb-p:not(:first-child) {
-    margin-top: calc(var(--spacing) * 2);
-  }
-  .site-list > li {
-    margin-top: calc(var(--spacing) * 1);
+  .sb-mdx li,
+  .sb-mdx tr {
     break-inside: avoid;
   }
-  /* Long lists (six items or more) flow into two columns [EXT-MDN-COLUMNS],
-     the gap being gap-6 again. */
-  .site-list:has(> li:nth-child(6)) {
-    columns: 2;
-    column-gap: calc(var(--spacing) * 6);
-  }
-  /* A row holding such a list may break across pages; kept whole it leaves
-     most of a page empty [EXT-MDN-BREAK]. */
-  .sb-card-content:has(.site-list > li:nth-child(6)) {
-    break-inside: auto;
-  }
-  /* Cards of one-line entries (projects, certifications) lay their rows out
-     two to a line, as the footer's "grid grid-cols-2" does [SB-WWW-FOOTER:207];
-     the card title spans both. */
-  .site-print-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .site-print-grid > .sb-card-header {
-    grid-column: 1 / -1;
+  /* A link on paper shows where it goes [EXT-MDN-ATTR]. */
+  .sb-mdx a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: var(--text-sm);
+    color: var(--foreground-lighter);
   }
 }

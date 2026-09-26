@@ -181,3 +181,49 @@ if ('IntersectionObserver' in window) {
   }, { rootMargin: '-40% 0px -55% 0px' });
   sections.forEach(s => observer.observe(s));
 }
+
+// ── Document pages: "On this page" ──
+// A section is active once its heading reaches the top fifth of the viewport,
+// the zone the design-system TOC watches with rootMargin "0% 0% -80% 0%"
+// [SB-DS-TOC apps/design-system/components/toc.tsx:44-54]. It is measured on
+// scroll instead of by an IntersectionObserver, which misses headings that a
+// fast scroll or a jump skips over (see Deviations). The matching link takes
+// NavigationItem's active state [SB-DS-SIDENAV-ITEM side-navigation-item.tsx:33-35].
+const tocLinks = [...document.querySelectorAll('[data-toc] a[href^="#"]')];
+if (tocLinks.length) {
+  const ids = [...new Set(tocLinks.map(a => a.getAttribute('href').slice(1)))];
+  const headings = ids.map(id => document.getElementById(id)).filter(Boolean);
+  const setTocActive = id => {
+    tocLinks.forEach(a => {
+      const active = a.getAttribute('href') === '#' + id;
+      a.setAttribute('data-state', active ? 'active' : 'inactive');
+      if (active) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+  };
+  let tocFrame = 0;
+  const updateToc = () => {
+    tocFrame = 0;
+    const limit = window.innerHeight * 0.2;
+    let current = headings[0];
+    for (const h of headings) {
+      if (h.getBoundingClientRect().top <= limit) current = h;
+      else break;
+    }
+    setTocActive(current.id);
+  };
+  updateToc();
+  window.addEventListener('scroll', () => { if (!tocFrame) tocFrame = requestAnimationFrame(updateToc); }, { passive: true });
+  window.addEventListener('resize', updateToc);
+}
+
+// On phones the list sits in an accordion; picking a section closes it.
+document.querySelectorAll('details.doc-toc-mobile a').forEach(a => {
+  a.addEventListener('click', () => a.closest('details').removeAttribute('open'));
+});
+
+// Print buttons print the page itself [EXT-MDN-PRINT]; the beforeprint handler
+// above switches to the light theme first.
+document.querySelectorAll('[data-print]').forEach(button => {
+  button.addEventListener('click', () => window.print());
+});

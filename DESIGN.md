@@ -51,6 +51,7 @@ re-check every cited line number, and update the commit above.
 | --- | --- | --- |
 | `sb-` | A Supabase component, translated from its source; any change to it cites a Supabase source too | `assets/css/components.css` |
 | `site-` | How this page arranges those components | `assets/css/site.css` |
+| `doc-` | How a document page (the CV) arranges them | `assets/css/site.css` |
 | (none) | Tokens, base elements, and Supabase utilities (`no-scrollbar`, `sr-only`) | `assets/css/tokens.css` |
 
 `site.css` changes an `sb-` component only where a Supabase source composes it that
@@ -93,16 +94,25 @@ not UI copy, and are kept as written.
 | SB-DS-LAYOUT | [`apps/design-system/app/layout.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/app/layout.tsx) — `theme-color` |
 | SB-DS-TOPNAV | [`apps/design-system/components/top-navigation.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/components/top-navigation.tsx) |
 | SB-WWW-FOOTER | [`apps/www/components/Footer/index.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/www/components/Footer/index.tsx) — the supabase.com footer |
+| SB-WWW-PAGEHEADER | [`apps/www/components/Sections/PageHeader.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/www/components/Sections/PageHeader.tsx) — the eyebrow above a page title |
+| SB-WWW-LEGALVERSIONS | [`apps/www/components/Legal/LegalDocVersions.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/www/components/Legal/LegalDocVersions.tsx) — the legal pages' version line |
 | SB-WWW-NAV | [`apps/www/components/Nav/RightClickBrandLogo.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/www/components/Nav/RightClickBrandLogo.tsx) — header logo height `h-6` |
 | SB-WWW-SECTION | [`apps/www/components/Layouts/SectionContainer.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/www/components/Layouts/SectionContainer.tsx) — footer padding |
 | SB-WWW-LIVE | supabase.com measured in Chromium on 2026-09-25 at 375, 700 and 1366px wide: footer body padding 64/72/96px, bar 128px below the columns with 32px above its text, 22px icons, column headings Manrope 600 at 15px, `small` at 12px in the lighter foreground |
 | SB-DS-FOOTER | [`apps/design-system/components/site-footer.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/components/site-footer.tsx) — footer row that stacks on small screens |
 | SB-DS-THEMESWITCHER | [`apps/design-system/components/theme-switcher-dropdown.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/components/theme-switcher-dropdown.tsx) |
+| SB-DS-APP-LAYOUT | [`apps/design-system/app/(app)/layout.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/app/%28app%29/layout.tsx) — sidebar + content grid |
+| SB-DS-DOCS-PAGE | [`apps/design-system/app/(app)/docs/[[...slug]]/page.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/app/%28app%29/docs/%5B%5B...slug%5D%5D/page.tsx) — doc page: breadcrumb, title block, separator, content |
+| SB-DS-SIDENAV | [`apps/design-system/components/side-navigation.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/components/side-navigation.tsx) |
+| SB-DS-SIDENAV-ITEM | [`apps/design-system/components/side-navigation-item.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/components/side-navigation-item.tsx) |
+| SB-DS-TOC | [`apps/design-system/components/toc.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/components/toc.tsx) — which section is active |
+| SB-DS-MDX | [`apps/design-system/components/mdx-components.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/components/mdx-components.tsx) — document text: headings, paragraphs, lists, tables |
 | SB-DS-EX | Registry examples: [`apps/design-system/registry/default/example/`](https://github.com/supabase/supabase/tree/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/registry/default/example) (file named at each use) |
 | SB-DS-EX-DETAIL | [`…/example/page-layout-detail.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/registry/default/example/page-layout-detail.tsx) — the page template |
 | SB-DS-TYPO-EX | [`…/example/typography-*.tsx`](https://github.com/supabase/supabase/tree/e3febf3b632a24bca72d73fd644f83a983f7cf84/apps/design-system/registry/default/example) — h1, lead, p, muted |
 | SB-UI-BUTTON | [`packages/ui/src/components/Button/Button.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/components/Button/Button.tsx) |
 | SB-UI-CONST | [`packages/ui/src/lib/constants.ts`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/lib/constants.ts) — button sizes |
+| SB-UI-ACCORDION | [`packages/ui/src/components/shadcn/ui/accordion.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/components/shadcn/ui/accordion.tsx) |
 | SB-UI-BADGE | [`packages/ui/src/components/shadcn/ui/badge.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/components/shadcn/ui/badge.tsx) |
 | SB-UI-CARD | [`packages/ui/src/components/shadcn/ui/card.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/components/shadcn/ui/card.tsx) |
 | SB-UI-SEPARATOR | [`packages/ui/src/components/shadcn/ui/separator.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/components/shadcn/ui/separator.tsx) |
@@ -114,6 +124,7 @@ not UI copy, and are kept as written.
 | SB-UI-ICON-GITHUB | [`packages/ui/src/components/Icon/icons/IconGitHubSolid/IconGitHubSolid.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/components/Icon/icons/IconGitHubSolid/IconGitHubSolid.tsx) |
 | SB-UI-ICON-EMAIL | [`packages/ui/src/static/icons/email-icon.svg`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/static/icons/email-icon.svg) — solid envelope |
 | SB-UI-ICON-LINKEDIN | [`packages/ui/src/components/Icon/icons/IconLinkedinSolid/IconLinkedinSolid.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui/src/components/Icon/icons/IconLinkedinSolid/IconLinkedinSolid.tsx) |
+| SB-UIP-TOC | [`packages/ui-patterns/src/Toc/toc.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui-patterns/src/Toc/toc.tsx) — sticky under the header, hidden below `md` |
 | SB-UIP-PAGECONTAINER | [`packages/ui-patterns/src/PageContainer/index.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui-patterns/src/PageContainer/index.tsx) |
 | SB-UIP-PAGEHEADER | [`packages/ui-patterns/src/PageHeader/index.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui-patterns/src/PageHeader/index.tsx) |
 | SB-UIP-PAGESECTION | [`packages/ui-patterns/src/PageSection/index.tsx`](https://github.com/supabase/supabase/blob/e3febf3b632a24bca72d73fd644f83a983f7cf84/packages/ui-patterns/src/PageSection/index.tsx) |
@@ -153,9 +164,9 @@ not UI copy, and are kept as written.
 | EXT-MDN-PRINT | [MDN: Printing](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Printing) — `@media print` |
 | EXT-MDN-PAGE | [MDN: @page](https://developer.mozilla.org/en-US/docs/Web/CSS/@page) — page size and margins |
 | EXT-MDN-BREAK | [MDN: break-inside](https://developer.mozilla.org/en-US/docs/Web/CSS/break-inside) and [break-after](https://developer.mozilla.org/en-US/docs/Web/CSS/break-after) |
-| EXT-MDN-COLUMNS | [MDN: columns](https://developer.mozilla.org/en-US/docs/Web/CSS/columns) — multi-column lists on paper |
 | EXT-MDN-BEFOREPRINT | [MDN: beforeprint](https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeprint_event) and [afterprint](https://developer.mozilla.org/en-US/docs/Web/API/Window/afterprint_event) events |
-| EXT-PLAYWRIGHT-PDF | [Playwright: page.pdf()](https://playwright.dev/python/docs/api/class-page#page-pdf) — builds `cv.pdf` in `tools/build-cv-pdf.py` |
+| EXT-HTML-DETAILS | [HTML: the details and summary elements](https://html.spec.whatwg.org/multipage/interactive-elements.html#the-details-element) |
+| EXT-MDN-ATTR | [MDN: attr()](https://developer.mozilla.org/en-US/docs/Web/CSS/attr) — printing a link's address |
 | EXT-HTML-BUTTON | [HTML: the button element — content model is phrasing content](https://html.spec.whatwg.org/multipage/form-elements.html#the-button-element) |
 
 ## Deviations
@@ -183,6 +194,10 @@ Every place the site differs from its Supabase source, and why.
 | Footer | Bar is one row at every width | Stacks and centres below `md`, one row from `md` | The two ends do not fit side by side at 375px; stacked as the design-system site's footer row is. SB-DS-FOOTER:6 |
 | Footer | Email is not among the channel icons | Adds Supabase's solid envelope, its `fill="white"` changed to `currentColor` | A hardcoded fill cannot follow the link colour or the theme; SB-DOC-ICONS asks for `currentColor` and no hardcoded colours |
 | Footer | Bar's left end is `<small>© Supabase Inc</small>` alone (:253) | A GitHub mark linking to this site's source opens the line, `flex items-center gap-2` (SB-DS-TOPNAV:35) | Owner's request, 2026-09-26. Icon link styles from :122 and :125 |
-| Print (CV) | No print styles anywhere in Supabase | A print block in `site.css`: A4 page, screen chrome hidden, rows kept whole, lists and one-line cards in two columns | Rules from EXT-MDN-PRINT, EXT-MDN-PAGE, EXT-MDN-BREAK, EXT-MDN-COLUMNS. Every length reuses a Supabase step: page margin 3rem (PageSection `pt-12`), sections `gap-6`, rows `py-2` (size small), spacing `mt-2`/`mt-1`, grid `grid-cols-2` (footer columns) |
-| Print (CV) | Theme follows the reader's choice | Always the light theme on paper, restored after printing | Paper is light; a dark page would print as a solid block. EXT-MDN-BEFOREPRINT; the PDF build sets the light theme before loading |
-| CV bullet lists | Typography list `my-6 ml-6 list-disc [&>li]:mt-2` | Same, with `my-6` replaced by `pt-2` | The list sits inside a card row, where the Detail stack spaces its parts with `pt-2`. SB-DS-TYPO-EX `typography-list.tsx:3`, SB-DS-EX-DETAIL:84 |
+| CV page | Docs frame `max-w-site` with side borders (layout.tsx:19) | PageContainer width, no side borders | Lines up with the header and footer, as on the home page. SB-UIP-PAGECONTAINER |
+| CV page | The page's own sections sit in a right-hand TOC from `xl` (page.tsx:136-146); the left sidebar lists other pages | The left sidebar holds the pages, this page's sections and a Print action, in SideNavigation style | The owner asked for this layout (2026-09-26): one list beside the text, with printing next to it |
+| CV page | NavigationItem draws its active bar with an empty `<div>` | `::before` on the link | Same bar; no empty element in the markup |
+| CV page | Phones open the sidebar in a Sheet (MobileSidebarSheet) | An Accordion above the content, on `details`/`summary` | Seven links need no dialog; works without script. SB-UI-ACCORDION, EXT-HTML-DETAILS |
+| CV page | The TOC marks a section when its heading enters the top 20% (IntersectionObserver, toc.tsx:44-54) | Same 20% line, measured on scroll | The observer misses headings a fast scroll or a jump passes over |
+| Print | No print styles anywhere in Supabase | A print block in `site.css`: A4 page with 3rem margins (PageSection `pt-12`), only the document shown, headings kept with what follows, link addresses printed | EXT-MDN-PRINT, EXT-MDN-PAGE, EXT-MDN-BREAK, EXT-MDN-ATTR |
+| Print | Theme follows the reader's choice | Always the light theme on paper, restored after printing | A dark page would print as a solid block. EXT-MDN-BEFOREPRINT |

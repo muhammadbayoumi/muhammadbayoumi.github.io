@@ -10,15 +10,13 @@ layout rule has a cited source, and new work must follow the same rules.
 
 ```
 index.html                 the home page
-cv.html                    the CV (content from the LinkedIn profile)
-cv.pdf                     the CV as a PDF, built from cv.html
+cv.html                    the CV as a printable document (content from the LinkedIn profile)
 assets/vendor/supabase/    Supabase colour tokens, unmodified (Apache-2.0)
 assets/vendor/tailwind/    Tailwind preflight (MIT)
 assets/css/tokens.css      fonts, type scale, radius, base layer
 assets/css/components.css  Supabase components (sb-*)
 assets/css/site.css        page composition (site-*)
-assets/js/main.js          theme menu, section tabs, counters, print theme
-tools/build-cv-pdf.py      rebuilds cv.pdf
+assets/js/main.js          theme menu, section tabs, on-this-page list, printing
 ```
 
 Third-party licences: Supabase (Apache-2.0) in `assets/vendor/supabase/LICENSE`,
@@ -27,12 +25,6 @@ Tailwind CSS (MIT) in `assets/vendor/tailwind/LICENSE`, Lucide icons (ISC) inlin
 
 ## Updating the CV
 
-`cv.pdf` is not written by hand. After any change to `cv.html` (or to the CSS it
-uses), rebuild it from the repository root and commit both files together:
-
-```bash
-python tools/build-cv-pdf.py
-```
-
-It needs Playwright with Chromium (`pip install playwright`, then
-`python -m playwright install chromium`).
+Edit `cv.html` directly. The page is the CV: its Print button (or the browser's
+own print, with Save as PDF) gives the paper version, laid out by the print
+rules at the end of `assets/css/site.css`. There is no separate PDF to rebuild.
