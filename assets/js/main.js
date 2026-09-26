@@ -121,6 +121,22 @@ document.addEventListener('pointerdown', e => {
 
 applyTheme(readTheme());
 
+// ── Printing ──
+// Paper is printed in the light theme, then the chosen theme comes back
+// [EXT-MDN-BEFOREPRINT]. Supabase ships no print theme — see DESIGN.md → Deviations.
+let themeBeforePrint = null;
+window.addEventListener('beforeprint', () => {
+  themeBeforePrint = document.documentElement.getAttribute('data-theme');
+  document.documentElement.setAttribute('data-theme', 'light');
+  document.documentElement.style.colorScheme = 'light';
+});
+window.addEventListener('afterprint', () => {
+  if (!themeBeforePrint) return;
+  document.documentElement.setAttribute('data-theme', themeBeforePrint);
+  document.documentElement.style.colorScheme = themeBeforePrint;
+  themeBeforePrint = null;
+});
+
 // ── Sticky header offset ──
 // `scroll-mt-(--header-height)` needs the real header height [SB-DOC-SKIP skip-to-content.mdx "Usage"].
 const header = document.getElementById('site-header');

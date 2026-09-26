@@ -150,6 +150,12 @@ not UI copy, and are kept as written.
 | EXT-MDN-OVERFLOW | [MDN: overflow-x](https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-x) |
 | EXT-MDN-REDUCED-MOTION | [MDN: prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) |
 | EXT-WCAG-HEADINGS | [WCAG 2.2 — 1.3.1 Info and Relationships](https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html) (heading structure) |
+| EXT-MDN-PRINT | [MDN: Printing](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Printing) — `@media print` |
+| EXT-MDN-PAGE | [MDN: @page](https://developer.mozilla.org/en-US/docs/Web/CSS/@page) — page size and margins |
+| EXT-MDN-BREAK | [MDN: break-inside](https://developer.mozilla.org/en-US/docs/Web/CSS/break-inside) and [break-after](https://developer.mozilla.org/en-US/docs/Web/CSS/break-after) |
+| EXT-MDN-COLUMNS | [MDN: columns](https://developer.mozilla.org/en-US/docs/Web/CSS/columns) — multi-column lists on paper |
+| EXT-MDN-BEFOREPRINT | [MDN: beforeprint](https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeprint_event) and [afterprint](https://developer.mozilla.org/en-US/docs/Web/API/Window/afterprint_event) events |
+| EXT-PLAYWRIGHT-PDF | [Playwright: page.pdf()](https://playwright.dev/python/docs/api/class-page#page-pdf) — builds `cv.pdf` in `tools/build-cv-pdf.py` |
 | EXT-HTML-BUTTON | [HTML: the button element — content model is phrasing content](https://html.spec.whatwg.org/multipage/form-elements.html#the-button-element) |
 
 ## Deviations
@@ -177,3 +183,6 @@ Every place the site differs from its Supabase source, and why.
 | Footer | Bar is one row at every width | Stacks and centres below `md`, one row from `md` | The two ends do not fit side by side at 375px; stacked as the design-system site's footer row is. SB-DS-FOOTER:6 |
 | Footer | Email is not among the channel icons | Adds Supabase's solid envelope, its `fill="white"` changed to `currentColor` | A hardcoded fill cannot follow the link colour or the theme; SB-DOC-ICONS asks for `currentColor` and no hardcoded colours |
 | Footer | Bar's left end is `<small>© Supabase Inc</small>` alone (:253) | A GitHub mark linking to this site's source opens the line, `flex items-center gap-2` (SB-DS-TOPNAV:35) | Owner's request, 2026-09-26. Icon link styles from :122 and :125 |
+| Print (CV) | No print styles anywhere in Supabase | A print block in `site.css`: A4 page, screen chrome hidden, rows kept whole, lists and one-line cards in two columns | Rules from EXT-MDN-PRINT, EXT-MDN-PAGE, EXT-MDN-BREAK, EXT-MDN-COLUMNS. Every length reuses a Supabase step: page margin 3rem (PageSection `pt-12`), sections `gap-6`, rows `py-2` (size small), spacing `mt-2`/`mt-1`, grid `grid-cols-2` (footer columns) |
+| Print (CV) | Theme follows the reader's choice | Always the light theme on paper, restored after printing | Paper is light; a dark page would print as a solid block. EXT-MDN-BEFOREPRINT; the PDF build sets the light theme before loading |
+| CV bullet lists | Typography list `my-6 ml-6 list-disc [&>li]:mt-2` | Same, with `my-6` replaced by `pt-2` | The list sits inside a card row, where the Detail stack spaces its parts with `pt-2`. SB-DS-TYPO-EX `typography-list.tsx:3`, SB-DS-EX-DETAIL:84 |

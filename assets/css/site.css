@@ -136,3 +136,113 @@ main:focus {
   align-items: center;
   gap: calc(var(--spacing) * 2);
 }
+
+/* ═══════════════ CV page ═══════════════ */
+
+/* Contact row under the CV title: "flex flex-wrap gap-3" [SB-DS-EX keyboard-shortcut-demo.tsx:12]
+   in the description tone, "text-sm text-foreground-light" [SB-UIP-PAGESECTION:110], set apart
+   from the line above by the Detail stack's "pt-2" [SB-DS-EX-DETAIL page-layout-detail.tsx:84]. */
+.site-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 3);
+  padding-top: calc(var(--spacing) * 2);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  color: var(--foreground-light);
+}
+
+/* Bullets inside a role: Typography list "ml-6 list-disc [&>li]:mt-2"
+   [SB-DS-TYPO-EX typography-list.tsx:3]. Its "my-6" gives way to the Detail stack's
+   "pt-2" [SB-DS-EX-DETAIL:84] because the list sits inside a card row — see Deviations.
+   Text in the card's description tone, "text-sm text-foreground-lighter" [SB-UI-CARD card.tsx:41]. */
+.site-list {
+  padding-top: calc(var(--spacing) * 2);
+  margin-left: calc(var(--spacing) * 6);
+  list-style-type: disc;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  color: var(--foreground-lighter);
+}
+.site-list > li {
+  margin-top: calc(var(--spacing) * 2);
+}
+
+/* ═══════════════ Print ═══════════════
+   Supabase ships no print styles, so this block follows MDN — see DESIGN.md → Deviations.
+   Page box: A4 [EXT-MDN-PAGE], margins 3rem, the PageSection rhythm "pt-12"
+   [SB-UIP-PAGESECTION:9] (custom properties do not reach the page box, hence the literal).
+   Screen-only chrome is hidden [EXT-MDN-PRINT] and card rows are kept whole [EXT-MDN-BREAK].
+   main.js prints in the light theme [EXT-MDN-BEFOREPRINT]. */
+@page {
+  size: A4;
+  margin: 3rem;
+}
+@media print {
+  .sb-skip,
+  .sb-topnav,
+  .sb-www-footer,
+  .site-print-hide {
+    display: none !important;
+  }
+  .sb-page {
+    max-width: none;
+    padding-inline: 0;
+  }
+  .sb-page-header {
+    padding-top: 0;
+  }
+  .sb-card {
+    box-shadow: none;
+  }
+  .sb-card-header,
+  .sb-card-content {
+    break-inside: avoid;
+  }
+  .sb-section-summary,
+  .sb-card-header {
+    break-after: avoid;
+  }
+
+  /* Paper is denser than a screen. Every value below is a step of the same
+     Supabase scale, reused for print — see Deviations:
+     sections gap-6 (PageSection "gap-6" [SB-UIP-PAGESECTION:9]) instead of pt-12;
+     card rows py-2 (size small "py-2" [SB-UI-CONST constants.ts:55]) instead of py-4;
+     paragraph and bullet spacing mt-2 / mt-1 instead of mt-6 / mt-2. */
+  .sb-section {
+    padding-top: calc(var(--spacing) * 6);
+  }
+  .sb-card-header,
+  .sb-card-content,
+  .site-kv {
+    padding-block: calc(var(--spacing) * 2);
+  }
+  .sb-p:not(:first-child) {
+    margin-top: calc(var(--spacing) * 2);
+  }
+  .site-list > li {
+    margin-top: calc(var(--spacing) * 1);
+    break-inside: avoid;
+  }
+  /* Long lists (six items or more) flow into two columns [EXT-MDN-COLUMNS],
+     the gap being gap-6 again. */
+  .site-list:has(> li:nth-child(6)) {
+    columns: 2;
+    column-gap: calc(var(--spacing) * 6);
+  }
+  /* A row holding such a list may break across pages; kept whole it leaves
+     most of a page empty [EXT-MDN-BREAK]. */
+  .sb-card-content:has(.site-list > li:nth-child(6)) {
+    break-inside: auto;
+  }
+  /* Cards of one-line entries (projects, certifications) lay their rows out
+     two to a line, as the footer's "grid grid-cols-2" does [SB-WWW-FOOTER:207];
+     the card title spans both. */
+  .site-print-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .site-print-grid > .sb-card-header {
+    grid-column: 1 / -1;
+  }
+}
